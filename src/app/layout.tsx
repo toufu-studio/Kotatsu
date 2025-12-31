@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import { FiUser } from "react-icons/fi";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,41 +31,39 @@ export default function RootLayout({
     { id: 4, title: "もし1日だけ、動物の言葉がわかるとしたら誰と何を話したい？", numberOfPosted: "834" }
   ]
   return (
-    <html lang="en">
+    <html lang="ja">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="mx-auto flex justify-between max-w-md sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-full">
+        <div className="flex justify-between sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-full 2xl:max-w-full">
 
-          <div className="w-100 bg-white border-r border-gray-200 h-screen sticky top-0 flex flex-col justify-between">
-            <div>
-              <img src="" alt="" />
+          <div className="2xl:w-[25rem] xl:w-80 bg-white border-r border-gray-200 h-screen sticky top-0 flex flex-col justify-between shrink-0">
+            <div className="flex flex-col">
+              <FiUser className="w-7 h-7"/>
               <div>プロフィール</div>
             </div>
           </div>
 
-          <div className="flex flex-1 flex-col h-full bg-white relative">
-
+          <div className="flex flex-1 flex-col bg-white">
             <header className="sticky top-0 h-20 border-b justify-center gap-10 border-gray-200 flex items-center bg-white/80">
               <img src="/kotatsu_logo.svg" alt="kotatsu_logo" width={70} />
-              <div className="text-xs">ハイスピードな、あたたかいSNS</div>
+              <div className="text-xs sm:text-red-600 md:text-blue-600 lg:text-green-600 xl:text-yellow-600 2xl:text-pink-600">ハイスピードな、あたたかいSNS</div>
             </header>
 
             <main className="">
               <div className="">{children}</div>
             </main>
-
           </div>
 
-          <div className="w-90 mr-50 bg-white border-l border-gray-200 h-screen sticky top-0 flex flex-col justify-between">
-            <div className="flex flex-col mt-20 ml-7.5 border-b border-gray-200">
-              <div className="text-xl font-bold mb-1.5 ml-2.5">現在のこたつ</div>
+          <div className="2xl:w-[35rem] xl:w-96 bg-white border-l border-gray-200 h-screen sticky top-0 flex flex-col justify-between shrink-0">
+            <div className="flex flex-col mt-20 ml-7 border-b mr-50 border-gray-200">
+              <div className="text-xl font-bold mb-1 ml-2.5">現在のこたつ</div>
               <ul className="flex flex-col items-start mb-5">
                 <li className="w-full pb-2.5 pt-2.5 hover:bg-gray-100 duration-200 pr-2.5 pl-2.5">{threads[0].title}<div className="text-xs text-gray-400 pt-1">{threads[0].numberOfPosted}件の会話</div></li>
                 <li className="w-full pb-2.5 pt-2.5 hover:bg-gray-100 duration-200 pr-2.5 pl-2.5">{threads[1].title}<div className="text-xs text-gray-400 pt-1">{threads[1].numberOfPosted}件の会話</div></li>
                 <li className="w-full pb-2.5 pt-2.5 hover:bg-gray-100 duration-200 pr-2.5 pl-2.5">{threads[2].title}<div className="text-xs text-gray-400 pt-1">{threads[2].numberOfPosted}件の会話</div></li>
               </ul>
-              <div className="text-xl font-bold mb-1.5 ml-2.5">本日のこたつ（AI）</div>
+              <div className="text-xl font-bold mb-1 ml-2.5">本日のこたつ（AI）</div>
               <ul className="flex flex-col items-start mb-3">
                 <li className="w-full pb-2.5 pt-2.5 hover:bg-gray-100 duration-200 pr-2.5 pl-2.5">{threads[3].title}<div className="text-xs text-gray-400 pt-1">{threads[3].numberOfPosted}件の会話</div></li>
               </ul>

@@ -22,12 +22,54 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const threads = [
+    { id: 1, title: "パスタの種類について語る", numberOfPosted: "4" },
+    { id: 2, title: "今期のアニメで一番多く走ってた人を探す", numberOfPosted: "34" },
+    { id: 3, title: "好きな文鎮発表ドラゴン", numberOfPosted: "172" },
+    { id: 4, title: "もし1日だけ、動物の言葉がわかるとしたら誰と何を話したい？", numberOfPosted: "834" }
+  ]
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="mx-auto flex justify-between max-w-md sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-full">
+
+          <div className="w-100 bg-white border-r border-gray-200 h-screen sticky top-0 flex flex-col justify-between">
+            <div>
+              <img src="" alt="" />
+              <div>プロフィール</div>
+            </div>
+          </div>
+
+          <div className="flex flex-1 flex-col h-full bg-white relative">
+
+            <header className="sticky top-0 h-20 border-b justify-center gap-10 border-gray-200 flex items-center bg-white/80">
+              <img src="/kotatsu_logo.svg" alt="kotatsu_logo" width={70} />
+              <div className="text-xs">ハイスピードな、あたたかいSNS</div>
+            </header>
+
+            <main className="">
+              <div className="">{children}</div>
+            </main>
+
+          </div>
+
+          <div className="w-90 mr-50 bg-white border-l border-gray-200 h-screen sticky top-0 flex flex-col justify-between">
+            <div className="flex flex-col mt-20 ml-7.5 border-b border-gray-200">
+              <div className="text-xl font-bold mb-1.5 ml-2.5">現在のこたつ</div>
+              <ul className="flex flex-col items-start mb-5">
+                <li className="w-full pb-2.5 pt-2.5 hover:bg-gray-100 duration-200 pr-2.5 pl-2.5">{threads[0].title}<div className="text-xs text-gray-400 pt-1">{threads[0].numberOfPosted}件の会話</div></li>
+                <li className="w-full pb-2.5 pt-2.5 hover:bg-gray-100 duration-200 pr-2.5 pl-2.5">{threads[1].title}<div className="text-xs text-gray-400 pt-1">{threads[1].numberOfPosted}件の会話</div></li>
+                <li className="w-full pb-2.5 pt-2.5 hover:bg-gray-100 duration-200 pr-2.5 pl-2.5">{threads[2].title}<div className="text-xs text-gray-400 pt-1">{threads[2].numberOfPosted}件の会話</div></li>
+              </ul>
+              <div className="text-xl font-bold mb-1.5 ml-2.5">本日のこたつ（AI）</div>
+              <ul className="flex flex-col items-start mb-3">
+                <li className="w-full pb-2.5 pt-2.5 hover:bg-gray-100 duration-200 pr-2.5 pl-2.5">{threads[3].title}<div className="text-xs text-gray-400 pt-1">{threads[3].numberOfPosted}件の会話</div></li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </body>
     </html>
   );

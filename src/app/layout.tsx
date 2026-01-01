@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-import { FiUser } from "react-icons/fi";
+import { FiUser, FiHome } from "react-icons/fi";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,28 +35,45 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex justify-between sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-full 2xl:max-w-full">
+        <div className="flex justify-between sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-dvh 2xl:max-w-full">
 
-          <div className="2xl:w-[25rem] xl:w-80 bg-white border-r border-gray-200 h-screen sticky top-0 flex flex-col justify-between shrink-0">
-            <div className="flex flex-col">
-              <FiUser className="w-7 h-7"/>
-              <div>プロフィール</div>
+          <div className="2xl:w-[358px] min-[86.875rem]:w-[240px] xl:w-[7rem] lg:w-[87px] bg-white border-r border-gray-200 h-screen sticky top-0 flex flex-col justify-between shrink-0">
+            <div className="flex flex-col mt-19 mr-10 ml-auto">
+              <div className="flex gap-5 items-center rounded-3xl hover:bg-gray-100 p-3">
+                <div className="text-xl">KOTATSU</div>
+              </div>
+              <div className="flex gap-5 items-center rounded-3xl hover:bg-gray-100 p-3">
+                <FiHome className="w-7 h-7" />
+                <div className="text-xl">ホーム</div>
+              </div>
+              <div className="flex gap-5 items-center rounded-3xl hover:bg-gray-100 p-3">
+                <FiUser className="w-7 h-7" />
+                <div className="text-xl">プロフィール</div>
+              </div>
             </div>
           </div>
 
           <div className="flex flex-1 flex-col bg-white">
             <header className="sticky top-0 h-20 border-b justify-center gap-10 border-gray-200 flex items-center bg-white/80">
               <img src="/kotatsu_logo.svg" alt="kotatsu_logo" width={70} />
-              <div className="text-xs sm:text-red-600 md:text-blue-600 lg:text-green-600 xl:text-yellow-600 2xl:text-pink-600">ハイスピードな、あたたかいSNS</div>
+              <div className="text-xs sm:text-red-600 md:text-blue-600 lg:text-green-600 xl:text-yellow-600  min-[86.875rem]:text-purple-400 2xl:text-pink-600">ハイスピードな、あたたかいSNS</div>
             </header>
 
             <main className="">
               <div className="">{children}</div>
             </main>
-          </div>
 
-          <div className="2xl:w-[35rem] xl:w-96 bg-white border-l border-gray-200 h-screen sticky top-0 flex flex-col justify-between shrink-0">
-            <div className="flex flex-col mt-20 ml-7 border-b mr-50 border-gray-200">
+            <div className="sticky bottom-0 h-13 border-t justify-center gap-10 border-gray-200 flex items-center bg-white">
+              <div className="mr-auto ml-10 w-full pr-10">
+                <div className="flex-1 relative">
+                  <textarea name="" id="" rows={1} placeholder="メッセージを入力..." className="w-full outline-none"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="2xl:w-[560px] xl:w-[35rem] min-[1390px]:w-[30rem] lg:w-[35rem] bg-white border-l border-gray-200 h-screen sticky top-0 flex flex-col">
+            <div className="w-85 flex flex-col mt-20 ml-7 border-b border-gray-200">
               <div className="text-xl font-bold mb-1 ml-2.5">現在のこたつ</div>
               <ul className="flex flex-col items-start mb-5">
                 <li className="w-full pb-2.5 pt-2.5 hover:bg-gray-100 duration-200 pr-2.5 pl-2.5">{threads[0].title}<div className="text-xs text-gray-400 pt-1">{threads[0].numberOfPosted}件の会話</div></li>
@@ -74,3 +91,7 @@ export default function RootLayout({
     </html>
   );
 }
+
+//スマホレイアウト
+//入力バー
+//左サイドバー

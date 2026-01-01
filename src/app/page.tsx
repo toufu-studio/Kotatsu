@@ -1,4 +1,7 @@
-import React from "react";
+"use client";
+
+import React, { use } from "react";
+import { useEffect } from "react";
 
 export default function Home() {
 
@@ -20,16 +23,28 @@ export default function Home() {
     { id: 2, username: "Mr.Pasta", content: "イカ墨って美味いんか", postedAt: "2025-12-30 13:06" },
     { id: 1, username: "ピエール", content: "ぱすたたべたい", postedAt: "2025-12-30 13:05" }
   ];
+
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
+  }
+
+  useEffect(() => {
+    scrollToBottom();
+  }, []);
+
   return (
-    <main className="flex-1 flex flex-col 9-6">
-      <div className="flex flex-col items-center mb-50 mt-10">
+    <main className="flex-1 flex flex-col">
+      <div className="flex flex-col items-center mb- mt-10">
         <div className="">
           {posts.map((post) => (
-            <div key={post.id} className="mb-5 bg-white pr-2.5 pl-2.5">
+            <div key={post.id} className="mb-5 bg-white mr-10 ml-10">
               <div className="flex">
                 <div className="mr-2 text-sm text-gray-500">{post.id}</div>
-                <div className="text-sm pr-120 text-gray-500">{post.username}</div>
-                <div className="ml-auto text-xs text-gray-400">{post.postedAt}</div>
+                <div className="text-sm pr-120 max-[1280px]:pr-80 text-gray-500">{post.username}</div>
+                <div className="ml-auto whitespace-nowrap text-xs text-gray-400">{post.postedAt}</div>
               </div>
               <div className="mt-1 text-sm">{post.content}</div>
             </div>

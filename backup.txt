@@ -74,3 +74,31 @@ export default function RootLayout({
     </html>
   );
 }
+
+<div className="sticky bottom-0 h-15 border-t justify-center border-gray-200 flex items-center bg-white shadow-[0_-1px_4px_rgba(0,0,0,0.05)]">
+              <div className="mr-auto ml-10 w-full pr-10">
+                <div className="flex-1 relative">
+                  <TextareaAutosize name="" id="" rows={1} placeholder="メッセージを入力..." className="w-full outline-none" />
+                </div>
+              </div>
+              <button className="w-50 bg-[#8d6f71] hover:bg-[#af8f92] text-white font-bold py-2 content-center rounded-3xl">
+                <div className="flex items-center justify-center gap-2">
+                <FiSend className="w-7 h-7 stroke-[1.6]" />
+                発言
+                </div>
+              </button>
+            </div>
+
+            <div className="flex-1 sticky h-15 bottom-0 border-t border-gray-200 flex items-center bg-white shadow-[0_-1px_4px_rgba(0,0,0,0.05)]">
+            <div className="mr-auto ml-10 w-full pr-10 flex flex-1 items-center gap-4">
+                <div className="flex-1 relative items-end">
+                    <TextareaAutosize name="" id="" maxRows={5} placeholder="メッセージを入力..." className="w-full outline-none" />
+                </div>
+                <button className="w-30 bg-[#8d6f71] hover:bg-[#af8f92] text-white font-bold py-2 content-center rounded-3xl">
+                    <div className="flex items-center justify-center gap-2">
+                        <FiSend className="w-7 h-7 stroke-[1.6]" />
+                        Say
+                    </div>
+                </button>
+            </div>
+        </div>

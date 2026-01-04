@@ -9,7 +9,6 @@ import { useState } from "react";
 
 export default function InputBar({ threadId }: { threadId: number }) {
     const [message, setMessage] = useState("");
-    const [username, setUsername] = useState("");
 
     const maxchar = 140;
 

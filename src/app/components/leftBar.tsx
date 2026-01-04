@@ -3,6 +3,7 @@
 import "../globals.css";
 
 import { FiUser, FiHome, FiSettings, FiBook } from "react-icons/fi";
+import Link from "next/link";
 
 export default function LeftBar() {
     return (
@@ -11,18 +12,18 @@ export default function LeftBar() {
                       <div className="flex gap-5 items-center rounded-3xl p-3">
                         <div className="font-bold text-xl md:hidden xl:flex">KOTATSU</div>
                       </div>
-                      <div className="flex gap-5 items-center rounded-3xl hover:bg-gray-100 duration-200 p-3 cursor-pointer">
+                      <Link href={"/home"} className="flex gap-5 items-center rounded-3xl hover:bg-gray-100 duration-200 p-3 cursor-pointer">
                         <FiHome className="w-7 h-7 stroke-[1.6]" />
                         <div className="text-xl md:hidden xl:flex">ホーム</div>
-                      </div>
-                      <div className="flex gap-5 items-center rounded-3xl hover:bg-gray-100 duration-200 p-3 cursor-pointer">
+                      </Link>
+                      <Link href="/profile" className="flex gap-5 items-center rounded-3xl hover:bg-gray-100 duration-200 p-3 cursor-pointer">
                         <FiUser className="w-7 h-7 stroke-[1.6]" />
                         <div className="text-xl md:hidden xl:flex">プロフィール</div>
-                      </div>
-                      <div className="flex gap-5 items-center rounded-3xl hover:bg-gray-100 duration-200 p-3 cursor-pointer">
+                      </Link>
+                      <Link href={"/archive"} className="flex gap-5 items-center rounded-3xl hover:bg-gray-100 duration-200 p-3 cursor-pointer">
                         <FiBook className="w-7 h-7 stroke-[1.6]" />
-                        <div className="text-xl md:hidden xl:flex">使い方</div>
-                      </div>
+                        <div className="text-xl md:hidden xl:flex">アーカイブ</div>
+                      </Link>
                       <div className="flex gap-5 items-center rounded-3xl hover:bg-gray-100 duration-200 p-3 cursor-pointer">
                         <FiSettings className="w-7 h-7 stroke-[1.6]" />
                         <div className="text-xl md:hidden xl:flex">設定</div>

@@ -29,22 +29,34 @@ export default function ApplyButton() {
 
     const isRecruiting = minutes >= 45;
 
-        const SendThread = async () => {
+    const SendThread = async () => {
         if (!title || !firstStatement) return;
 
-        const { error } = await supabase
-            .from("submitted_threads")
-            .insert([
-                {
-                    title: title,
-                    first_statement: firstStatement,
-                },
-            ]);
+        const {data: {user}} = await supabase.auth.getUser();
+        if (!user){
+            return;
+        }
+
+        const displayName = user?.user_metadata?.display_name
+
+        const {error} = await supabase
+        .from("submitted_threads")
+        .insert([
+            {
+            title: title,
+            first_statement: firstStatement,
+            author_id: user.id,
+            user_name: displayName,
+            },
+
+        ]);
 
         if (error) {
             console.error("Error:", error);
         } else {
             setTitle("");
+            setFirstStatement("");
+            setIsOpen(false);
         }
     };
 
@@ -58,7 +70,10 @@ export default function ApplyButton() {
                         <div className="hover:bg-gray-100 rounded-full w-5 h-5 flex items-center justify-center cursor-pointer">
                             <FiX className="" onClick={() => setIsOpen(false)} />
                         </div>
-                        <h2 className="text-xl font-bold mb-4 mt-10">トピックを応募</h2>
+                        <div className="flex flex-col gap-1 mt-5 mb-4">
+                            <h2 className="text-xl font-bold">トピックを応募</h2>
+                            <p className="text-sm text-gray-500">ランダムで3つのトピックが選ばれます。</p>
+                        </div>
 
                         <p className="mb-3">トピックのタイトル</p>
                         <textarea value={title} onChange={(e) => setTitle(e.target.value)} name="" id="" maxLength={35} className="w-full h-10 border p-1.5 border-gray-200 rounded-lg mb-1"></textarea>

@@ -7,7 +7,7 @@ export default function PostsList({ threadId }: { threadId: number }) {
   const [posts, setPosts] = useState<{ id: number; username: string; content: string; postedAt: string }[]>([]);
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const CreatePosts = async () => {
       const { data, error } = await supabase
         .from("posts")
         .select("*")
@@ -27,29 +27,34 @@ export default function PostsList({ threadId }: { threadId: number }) {
       }
     };
 
-    fetchPosts();
+    CreatePosts();
 
     const subscription = supabase
-    .channel("posts")
-    .on(
-      "postgres_changes",
-      { event: "INSERT", schema: "public", table: "posts", filter: `thread_id=eq.${threadId}` },
-      (payload) => {
-        const newPost = payload.new;
-        setPosts((prevPosts) => [
-          ...prevPosts,
-          {
-            id: newPost.id,
-            username: newPost.user_name,
-            content: newPost.content,
-            postedAt: new Date(newPost.created_at).toLocaleString(),
+      .channel("postsupdata")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "posts", filter: `thread_id=eq.${threadId}` },
+        (payload) => {
+          if (payload.eventType === "INSERT") {
+            const newPost = payload.new;
+            setPosts((prevPosts) => [
+              ...prevPosts,
+              {
+                id: newPost.id,
+                username: newPost.user_name,
+                content: newPost.content,
+                postedAt: new Date(newPost.created_at).toLocaleString(),
+              }
+            ]);
+          } else if (payload.eventType === "DELETE") {
+            CreatePosts();
           }
-        ]);
-      }
-    )
-    .subscribe();
+        }
+      )
+      .subscribe();
+      
     return () => {
-        supabase.removeChannel(subscription);
+      supabase.removeChannel(subscription);
     };
   }, [threadId]);
 
@@ -60,7 +65,7 @@ export default function PostsList({ threadId }: { threadId: number }) {
     bottom.current?.scrollIntoView({ behavior: "auto" });
   }, [posts]);
 
-  
+
 
   return (
     <main className="flex-1 flex flex-col justify-end">
@@ -68,7 +73,7 @@ export default function PostsList({ threadId }: { threadId: number }) {
         <div className="flex flex-col w-[690px]">
           {posts.map((post, index) => (
             <div key={post.id} className="mb-5 bg-white px-10 py-1 hover:bg-gray-50">
-              
+
               <div className="flex justify-between w-150 items-center">
                 <div className="flex items-center">
                   <div className="mr-2 text-sm text-gray-500">{index + 1}</div>

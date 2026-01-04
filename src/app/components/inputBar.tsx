@@ -9,12 +9,15 @@ import { useState } from "react";
 
 export default function InputBar({ threadId }: { threadId: number }) {
     const [message, setMessage] = useState("");
-    const [username, setUsername] = useState("てすとたろう");
+    const [username, setUsername] = useState("");
 
     const maxchar = 140;
 
     const SendMessage = async () => {
         if (message.trim() === "") return;
+        const {data: {user}} = await supabase.auth.getUser();
+
+        const displayName = user?.user_metadata?.display_name
 
         const { error } = await supabase
             .from("posts")
@@ -22,12 +25,12 @@ export default function InputBar({ threadId }: { threadId: number }) {
                 {
                     thread_id: threadId,
                     content: message,
-                    user_name: "username",
+                    user_name: displayName,
                 },
             ]);
 
         if (error) {
-            console.error("Error:", error);
+            console.error("Error Details:", error.message);
         } else {
             setMessage("");
         }

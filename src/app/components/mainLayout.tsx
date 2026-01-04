@@ -2,9 +2,9 @@
 
 import { useLoginChecker } from "@/lib/loginChecker";
 
-import ThreadsList from "../components/threadsList";
-import LeftBar from "../components/leftBar";
-import LoginForm from "../components/loginForm";
+import ThreadsList from "./threadsList";
+import LeftBar from "./leftBar";
+import LoginForm from "./loginForm";
 
 export default function MainLayout({
   children,
@@ -12,9 +12,11 @@ export default function MainLayout({
   children: React.ReactNode;
 }>) {
 
-  const { user } = useLoginChecker();
+  const { user, loading } = useLoginChecker();
 
-  if (!user) { return; }
+  if (loading && !user) return null;
+
+  if (!user) { return <LoginForm />;}
 
   return (
     <div className="flex justify-between sm:max-w-sm md:!max-w-md lg:!max-w-lg xl:!max-w-xl 2xl:!max-w-full">

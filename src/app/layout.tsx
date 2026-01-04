@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-import { useLoginChecker } from "../lib/loginChecker";
-
 import ThreadsList from "./components/threadsList";
 
 import { threads, posts1, posts2, posts3, posts4 } from "./data";

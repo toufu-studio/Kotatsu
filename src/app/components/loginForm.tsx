@@ -98,7 +98,7 @@ export default function LoginForm() {
                                     <p className="mb-3">* パスワード（変更不可）</p>
                                     {showPasswordSpaceError && <p className="text-red-500 text-xs mb-2">スペースは使用できません。</p>}
                                 </div>
-                                <input value={userPassword} onChange={(e) => { const value = e.target.value; if (value.includes(" ") || value.includes("　")) { setShowPasswordSpaceError(true); return; } setShowPasswordSpaceError(false); setUserPassword(value); }} maxLength={30} placeholder="Password123" type="password" className="w-full h-10 border p-1.5 border-gray-200 rounded-lg mb-1"></input>
+                                <input value={userPassword} onChange={(e) => { const value = e.target.value; if (value.includes(" ") || value.includes("　")) { setShowPasswordSpaceError(true); return; } setShowPasswordSpaceError(false); setUserPassword(value); }} maxLength={20} placeholder="Password123" type="password" className="w-full h-10 border p-1.5 border-gray-200 rounded-lg mb-1"></input>
                                 <div className="text-right text-sm text-gray-500">残り{maxPasswordChar - userPassword.length}文字</div>
                                 <div className="flex justify-end mt-5 gap-5 items-center">
                                     <img src="/kotatsu_logo.svg" alt="" className="w-auto h-10" />

@@ -1,10 +1,9 @@
 "use client";
 
-import React, { use, useRef } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/lib/supabase";
 
-export default function Home({ threadId }: { threadId: number }) {
+export default function PostsList({ threadId }: { threadId: number }) {
   const [posts, setPosts] = useState<{ id: number; username: string; content: string; postedAt: string }[]>([]);
 
   useEffect(() => {

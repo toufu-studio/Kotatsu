@@ -1,18 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiX } from "react-icons/fi";
+import { supabase } from "@/lib/supabase";
 
 export default function ApplyButton() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [firstStatement, setFirstStatement] = useState("");
+
     const [title, setTitle] = useState("");
+    const [firstStatement, setFirstStatement] = useState("");
+
+    const [isOpen, setIsOpen] = useState(false);
+
     const maxchar = 140;
     const maxTitleChar = 35;
 
+    const now = new Date();
+    const [currentTime, setCurrentTime] = useState(new Date());
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000);
+        return () => clearInterval(timer)
+    }, []);
+
+    const minutes = currentTime.getMinutes();
+    const seconds = currentTime.getSeconds();
+
+    const isRecruiting = minutes >= 45;
+
+        const SendThread = async () => {
+        if (!title || !firstStatement) return;
+
+        const { error } = await supabase
+            .from("submitted_threads")
+            .insert([
+                {
+                    title: title,
+                    first_statement: firstStatement,
+                },
+            ]);
+
+        if (error) {
+            console.error("Error:", error);
+        } else {
+            setTitle("");
+        }
+    };
+
     return (
         <div>
-            <button onClick={() => setIsOpen(true)} className="bg-[#8d6f71] hover:bg-[#af8f92] text-white font-bold py-2 px-4 rounded-3xl">トピックを応募</button>
+            {isRecruiting ? (<button onClick={() => setIsOpen(true)} className="bg-[#8d6f71] hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center">トピックを応募</button>) : (<div className="bg-[#8d6f71] hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center">募集開始待機中</div>)}
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center">
                     <div className="absolute inset-0 bg-black/50" onClick={() => setIsOpen(false)}></div>
@@ -31,13 +69,16 @@ export default function ApplyButton() {
                         <div className="text-right text-sm text-gray-500">残り{maxchar - firstStatement.length}文字</div>
                         <div className="flex justify-end mt-5">
                             <button onClick={() => {
-                                // 応募処理をここに追加
+                                SendThread();
                                 setIsOpen(false);
-                            }} className="bg-[#8d6f71] hover:bg-[#af8f92] text-white font-bold py-2 px-4 rounded-3xl">応募する</button>
+                            }} className="bg-[#8d6f71] hover:bg-[#af8f92] text-white font-bold py-2 px-4 rounded-3xl cursor-pointer">応募する</button>
                         </div>
                     </div>
                 </div>
             )}
+            <div>
+                {isRecruiting ? (<div className="text-xs text-gray-400 ml-2.5 mt-2">こたつリセットまで: {minutes === 59 ? `${60 - seconds}秒` : `${60 - minutes}分`}</div>) : (<div className="text-xs text-gray-400 ml-2.5 mt-2">次のトピック募集まで: {minutes === 44 ? `${60 - seconds}秒` : `${45 - minutes}分`}</div>)}
+            </div>
         </div>
     );
 };

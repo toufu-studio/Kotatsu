@@ -11,9 +11,9 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  --breakpoint-md: 800px;
+  /*--breakpoint-md: 800px;
   --breakpoint-lg: 1190px;
-  --breakpoint-xl: 1340px;
+  --breakpoint-xl: 1340px;*/
 }
 
 @media (prefers-color-scheme: dark) {

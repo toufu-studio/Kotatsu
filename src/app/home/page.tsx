@@ -33,9 +33,18 @@ export default function Profile() {
         <div className="flex flex-col min-h-screen">
             <Header />
             <div className="w-[690px] bg-white min-h-full px-10 py-8">
-                <div className="flex flex-col">
-                    <div className="text-2xl font-bold">{displayName}さん、ようこそ！</div>
-                    <div className="text-xl">{registrationDate}からこたつに入っています。</div>
+                <div className="flex flex-col h-screen">
+                    <div className="flex flex-col border-b border-gray-200 mb-5">
+                        <div className="text-2xl font-bold mb-5">Home</div>
+                    </div>
+                    <div className="text-lg mb-10">{displayName}さん、ようこそ！</div>
+                    <div className="flex flex-col border-b border-gray-200 mb-5">
+                        <div className="text-2xl font-bold mb-5">Hint</div>
+                    </div>
+                    <div className="flex flex-col text-lg mb-10 gap-5">
+                        <div>[?] 右側の「現在のこたつ」から好きなトピックを選んで会話してみましょう。</div>
+                        <div>[?] 毎時45分からトピックの募集が始まり、毎時0分にランダムで3つが選ばれます。</div>
+                    </div>
                 </div>
             </div>
         </div>

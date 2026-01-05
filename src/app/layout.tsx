@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import { Analytics } from "@vercel/analytics/next"
+
 import ThreadsList from "./components/threadsList";
 
 import { threads, posts1, posts2, posts3, posts4 } from "./data";
@@ -31,15 +33,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
+      <head><meta name="viewport" content="width=device-width, initial-scale=1" /></head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex justify-between sm:max-w-sm md:!max-w-md lg:!max-w-lg xl:!max-w-xl 2xl:!max-w-full">
+        <div className="flex justify-between min-h-screen">
           <LeftBar />
           <div className="flex flex-1 flex-col bg-white">
 
             <main className="">
-              <div className="">{children}</div>
+              <div className="">{children}
+                <Analytics /></div>
             </main>
           </div>
           <ThreadsList />

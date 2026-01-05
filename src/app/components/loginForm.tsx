@@ -15,6 +15,8 @@ export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [showSpaceError, setShowSpaceError] = useState(false);
     const [showPasswordSpaceError, setShowPasswordSpaceError] = useState(false);
+    const [showUsernameError, setShowUsernameError] = useState(false);
+    const [showLoginError, setShowLoginError] = useState(false);
 
     const maxchar = 30;
     const maxPasswordChar = 20;
@@ -40,7 +42,7 @@ export default function LoginForm() {
 
     useEffect(() => {
         if (user) { setIsOpen(false) };
-    },[user]);
+    }, [user]);
 
     //スクロールできなくする
     useEffect(() => {
@@ -68,8 +70,32 @@ export default function LoginForm() {
             options: { data: { display_name: userName } }
         });
 
-        if (!error) {
-            setIsOpen(false);
+        if (error) {
+            if (error.status === 422) {
+                setShowUsernameError(true);
+            } else {
+                setIsOpen(false);
+            }
+        }
+    }
+
+    const LogIn = async () => {
+
+        if (!userName || !userPassword) {
+            return;
+        }
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: `${userName}@example.com`,
+            password: userPassword,
+        });
+
+        if (error) {
+            if (error.status === 400) {
+                setShowLoginError(true);
+            } else {
+                setIsLoginOpen(false);
+            }
         }
     }
 
@@ -77,22 +103,24 @@ export default function LoginForm() {
         <div>
             {/*サインアップ画面*/}
             <div>{isOpen &&
-                <div className="fixed inset-0 z-50 flex items-center justify-center">
+                <div className="fixed inset-0 z-50 flex items-center justify-center w-screen">
                     <div className="flex justify-center items-center absolute inset-0 bg-white">
-                        <div className="justify-center flex flex-col bg-white border-r border-gray-200 w-full pr-10 z-10 md:">
+                        
+                        <div className="min-:hidden justify-center flex-col bg-white border-r border-gray-200 pr-10 z-10 md:flex">
                             <div className="flex flex-col text-end gap-10">
-                                <h1 className="font-bold text-9xl">Sign Up</h1>
+                                <h1 className="font-bold text-9xl md:text-2xl">Sign Up</h1>
                                 <p>今までにないほどハイスピードな会話に参加しましょう。<br />個人情報は、不要です。</p>
                             </div>
                         </div>
-                        <div className="flex flex-col justify-center bg-white w-full rounded-lg pl-15 pr-70 py-5 z-10 w-full h-[450px]">
+                        <div className="flex flex-col justify-center bg-white md:w-1/2 rounded-lg pl-15 pr-70 py-5 z-10 h-[450px]">
                             <h2 className="text-xl font-bold mb-5">KOTATSUのアカウントを作成</h2>
-                            <div className="flex flex-col w-150">
+                            <div className="flex flex-col w-full max-w-md mx-auto">
                                 <div className="flex items-center">
-                                    <p className="mb-3">* 表示名（変更不可）</p>
+                                    <p className="mb-3">* ユーザー名（変更不可）</p>
                                     {showSpaceError && <p className="text-red-500 text-xs mb-2">スペースは使用できません。</p>}
+                                    {showUsernameError && <p className="text-red-500 text-xs mb-2">ユーザー名が既に使用されています。</p>}
                                 </div>
-                                <input value={userName} onChange={(e) => { const value = e.target.value; if (value.includes(" ") || value.includes("　")) { setShowSpaceError(true); return; } setShowSpaceError(false); setUserName(value); }} maxLength={30} placeholder="John_Smith" className="w-full h-10 border p-1.5 border-gray-200 rounded-lg mb-1"></input>
+                                <input value={userName} onChange={(e) => { const value = e.target.value; if (value.includes(" ") || value.includes("　")) { setShowSpaceError(true); return; } setShowSpaceError(false); setShowUsernameError(false); setUserName(value); }} maxLength={30} placeholder="John_Smith" className="w-full h-10 border p-1.5 border-gray-200 rounded-lg mb-1"></input>
                                 <div className="text-right text-sm text-gray-500">残り{maxchar - userName.length}文字</div>
                                 <div className="flex items-center">
                                     <p className="mb-3">* パスワード（変更不可）</p>
@@ -102,7 +130,7 @@ export default function LoginForm() {
                                 <div className="text-right text-sm text-gray-500">残り{maxPasswordChar - userPassword.length}文字</div>
                                 <div className="flex justify-end mt-5 gap-5 items-center">
                                     <img src="/kotatsu_logo.svg" alt="" className="w-auto h-10" />
-                                    <a href="" className="text-sm">アカウントをお持ちの場合</a>
+                                    <button onClick={()=>{ setIsOpen(false), setIsLoginOpen(true);}} className="text-sm">アカウントをお持ちの場合</button>
                                     <button onClick={() => {
                                         SignUp();
                                     }} className="bg-[#8d6f71] hover:bg-[#af8f92] text-white font-bold py-2 px-4 rounded-3xl cursor-pointer">サインアップ</button>
@@ -115,34 +143,34 @@ export default function LoginForm() {
 
             {/*ログイン画面*/}
             <div>{isLoginOpen &&
-                <div className="fixed inset-0 z-50 flex items-center">
-                    <div className="flex justify-center items-center absolute inset-0 bg-white backdrop-blur-md">
-                        <div className="justify-center flex flex-col bg-white border-r border-gray-200 w-full pr-10 py-5 z-10 w-[500px] h-[450px]">
-                            <div className="flex flex-col text-end gap-10">
-                                <h1 className="font-bold text-9xl">Sign Up</h1>
-                                <p>今までにないほどハイスピードな会話に参加しましょう。<br />個人情報は、不要です。</p>
+                <div className="fixed inset-0 z-50 flex items-center justify-center">
+                    <div className="flex justify-center items-center absolute inset-0 bg-white">
+                        <div className="justify-center flex flex-col bg-white border-r border-gray-200 w-full pr-10 z-10 md:">
+                            <div className="max-[700px]:hidden; flex flex-col text-end gap-10">
+                                <h1 className="font-bold text-9xl">Sign In</h1>
+                                <p>お久しぶりです。<br />早速、会話に参加しましょう。</p>
                             </div>
                         </div>
                         <div className="flex flex-col justify-center bg-white w-full rounded-lg pl-15 pr-70 py-5 z-10 w-full h-[450px]">
-                            <h2 className="text-xl font-bold mb-5 mt-10">KOTATSUのアカウントを作成</h2>
+                            <h2 className="text-xl font-bold mb-5">KOTATSUに入る</h2>
                             <div className="flex flex-col w-150">
-                                <div className="flex items-center">
-                                    <p className="mb-3">* 表示名（変更不可）</p>
-                                    {showSpaceError && <p className="text-red-500 text-xs mb-2">スペースは使用できません。</p>}
+                                <div className="flex items-center gap-5">
+                                    <p className="mb-3">ユーザー名</p>
+                                    {showLoginError && <p className="text-red-500 text-xs mb-3">ユーザー名またはパスワードが違います。</p>}
                                 </div>
                                 <input value={userName} onChange={(e) => { const value = e.target.value; if (value.includes(" ") || value.includes("　")) { setShowSpaceError(true); return; } setShowSpaceError(false); setUserName(value); }} maxLength={30} placeholder="John_Smith" className="w-full h-10 border p-1.5 border-gray-200 rounded-lg mb-1"></input>
                                 <div className="text-right text-sm text-gray-500">残り{maxchar - userName.length}文字</div>
                                 <div className="flex items-center">
-                                    <p className="mb-3">* パスワード（変更不可）</p>
-                                    {showPasswordSpaceError && <p className="text-red-500 text-xs mb-2">スペースは使用できません。</p>}
+                                    <p className="mb-3">パスワード</p>
                                 </div>
-                                <input value={userPassword} onChange={(e) => { const value = e.target.value; if (value.includes(" ") || value.includes("　")) { setShowPasswordSpaceError(true); return; } setShowPasswordSpaceError(false); setUserPassword(value); }} maxLength={30} placeholder="Password123" type="password" className="w-full h-10 border p-1.5 border-gray-200 rounded-lg mb-1"></input>
+                                <input value={userPassword} onChange={(e) => { const value = e.target.value; if (value.includes(" ") || value.includes("　")) { setShowPasswordSpaceError(true); return; } setShowPasswordSpaceError(false); setUserPassword(value); }} maxLength={20} placeholder="Password123" type="password" className="w-full h-10 border p-1.5 border-gray-200 rounded-lg mb-1"></input>
                                 <div className="text-right text-sm text-gray-500">残り{maxPasswordChar - userPassword.length}文字</div>
-                                <div className="flex justify-end mt-5 gap-5">
+                                <div className="flex justify-end mt-5 gap-5 items-center">
                                     <img src="/kotatsu_logo.svg" alt="" className="w-auto h-10" />
+                                    <button onClick={()=>{ setIsOpen(true); setIsLoginOpen(false); setShowLoginError(false);}} className="text-sm">アカウントをお持ちでない場合</button>
                                     <button onClick={() => {
-                                        SignUp();
-                                    }} className="bg-[#8d6f71] hover:bg-[#af8f92] text-white font-bold py-2 px-4 rounded-3xl cursor-pointer">サインアップ</button>
+                                        LogIn();
+                                    }} className="bg-[#8d6f71] hover:bg-[#af8f92] text-white font-bold py-2 px-4 rounded-3xl cursor-pointer">サインイン</button>
                                 </div>
                             </div>
                         </div>

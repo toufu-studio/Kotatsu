@@ -10,6 +10,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-zenkaku: var(--font-zen-kaku-gothic-new);
 
   /*--breakpoint-md: 800px;
   --breakpoint-lg: 1190px;

@@ -10,6 +10,8 @@ export default function ApplyButton() {
     const [firstStatement, setFirstStatement] = useState("");
 
     const [isOpen, setIsOpen] = useState(false);
+    const [isApply, setIsApply] = useState(false);
+    const [isRecrutingError, setIsRecrutingError] = useState(false);
 
     const maxchar = 140;
     const maxTitleChar = 35;
@@ -30,39 +32,47 @@ export default function ApplyButton() {
     const isRecruiting = minutes >= 45;
 
     const SendThread = async () => {
+
+        if (isRecruiting) {
+            setIsRecrutingError(true);
+            return;
+        }
+
         if (!title || !firstStatement) return;
 
-        const {data: {user}} = await supabase.auth.getUser();
-        if (!user){
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
             return;
         }
 
         const displayName = user?.user_metadata?.display_name
 
-        const {error} = await supabase
-        .from("submitted_threads")
-        .insert([
-            {
-            title: title,
-            first_statement: firstStatement,
-            author_id: user.id,
-            user_name: displayName,
-            },
+        const { error } = await supabase
+            .from("submitted_threads")
+            .insert([
+                {
+                    title: title,
+                    first_statement: firstStatement,
+                    author_id: user.id,
+                    user_name: displayName,
+                },
 
-        ]);
+            ]);
 
         if (error) {
-            console.error("Error:", error);
-        } else {
-            setTitle("");
-            setFirstStatement("");
-            setIsOpen(false);
-        }
+            if (error.code === '23505') {
+                setIsApply(true);
+            } else {
+                setTitle("");
+                setFirstStatement("");
+                setIsOpen(false);
+            }
+        };
     };
 
     return (
         <div>
-            {isRecruiting ? (<button onClick={() => setIsOpen(true)} className="bg-[#8d6f71] hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center">トピックを応募</button>) : (<div className="bg-[#8d6f71] hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center">募集開始待機中</div>)}
+            {isRecruiting ? (<button onClick={() => {setIsOpen(true); setIsRecrutingError(false);}} className="bg-[#8d6f71] hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center">トピックを応募</button>) : (<div className="bg-[#8d6f71] hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center">募集開始待機中</div>)}
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center">
                     <div className="absolute inset-0 bg-black/50" onClick={() => setIsOpen(false)}></div>
@@ -82,7 +92,8 @@ export default function ApplyButton() {
                         <p className="mb-3">最初の発言</p>
                         <textarea value={firstStatement} onChange={(e) => setFirstStatement(e.target.value)} name="" id="" maxLength={maxchar} className="w-full h-20 border p-1.5 border-gray-200 rounded-lg mb-1"></textarea>
                         <div className="text-right text-sm text-gray-500">残り{maxchar - firstStatement.length}文字</div>
-                        <div className="flex justify-end mt-5">
+                        <div className="flex justify-end mt-5 items-center gap-5">
+                            {isApply && <p className="text-red-500 text-sm">既に応募済みです :)</p>}
                             <button onClick={() => {
                                 SendThread();
                                 setIsOpen(false);

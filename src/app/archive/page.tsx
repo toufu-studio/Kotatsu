@@ -53,8 +53,8 @@ export default function ArchiveList() {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <Header />
-            <div className="w-[690px] bg-white min-h-full px-10 py-8">
+
+            <div className="w-full md:w-[690px] bg-white min-h-full px-10 py-8">
                 <div className="flex flex-col">
                     <div className="flex flex-col border-b border-gray-200 mb-5">
                         <div className="text-2xl font-bold">Archive</div>

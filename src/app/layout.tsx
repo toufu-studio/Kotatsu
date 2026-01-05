@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Zen_Kaku_Gothic_New } from "next/font/google";
 import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/next"
@@ -8,6 +8,8 @@ import ThreadsList from "./components/threadsList";
 
 import { threads, posts1, posts2, posts3, posts4 } from "./data";
 import LeftBar from "./components/leftBar";
+import Header from "./components/header";
+import MainLayout from "./components/mainLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,6 +19,13 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const zenKakuGothicNew = Zen_Kaku_Gothic_New({
+  variable: "--font-zen-kaku-gothic-new",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal"],
 });
 
 export const metadata: Metadata = {
@@ -37,17 +46,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex justify-between min-h-screen">
-          <LeftBar />
-          <div className="flex flex-1 flex-col bg-white">
-
-            <main className="">
-              <div className="">{children}
-                <Analytics /></div>
-            </main>
-          </div>
-          <ThreadsList />
-        </div>
+        <MainLayout>
+          {children}
+        </MainLayout>
       </body>
     </html>
   );

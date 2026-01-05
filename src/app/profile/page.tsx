@@ -41,18 +41,14 @@ export default function Profile() {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <Header />
-            <div className="w-[690px] bg-white min-h-full px-10 py-8">
+
+            <div className="w-full md:w-[690px] bg-white min-h-full px-10 py-8">
                 <div className="flex flex-col h-screen">
                     <div className="flex flex-col border-b border-gray-200 mb-5">
                         <div className="text-2xl font-bold mb-5">Profile</div>
                     </div>
                     <div className="text-lg mb-5">DisplayName: {displayName}</div>
                     <div className="text-lg">{registrationDate}からこたつに入っています。</div>
-                    <div className="flex flex-col gap-5 mt-20">
-                        <button onClick={Logout} className="bg-red-500 h-10 text-white">ログアウト</button>
-                        <button className="bg-red-500 h-10 text-white">アカウントを削除</button>
-                    </div>
                 </div>
             </div>
         </div>

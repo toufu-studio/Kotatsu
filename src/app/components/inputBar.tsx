@@ -54,7 +54,7 @@ export default function InputBar({ threadId }: { threadId: number }) {
             <button onClick={SendMessage} className="w-30 shrink-0 bg-[#8d6f71] hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 items-center rounded-3xl cursor-pointer">
                 <div className="flex items-center justify-center gap-2">
                     <FiSend className="w-7 h-7 stroke-[1.6]" />
-                    <span>発言</span>
+                    <span className="hidden md:flex">発言</span>
                 </div>
             </button>
 

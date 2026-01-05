@@ -1,10 +1,13 @@
 "use client";
 
 import { useLoginChecker } from "@/lib/loginChecker";
+import { useState } from "react";
 
 import ThreadsList from "./threadsList";
 import LeftBar from "./leftBar";
 import LoginForm from "./loginForm";
+import Header from "./header";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function MainLayout({
   children,
@@ -14,20 +17,25 @@ export default function MainLayout({
 
   const { user, loading } = useLoginChecker();
 
+  const [isOpen, setIsOpen] = useState(false);
+
   if (loading && !user) return null;
 
-  if (!user) { return <LoginForm />;}
+  if (!user) { return <LoginForm />; }
 
   return (
-    <div className="flex justify-between sm:max-w-sm md:!max-w-md lg:!max-w-lg xl:!max-w-xl 2xl:!max-w-full">
-      <LeftBar />
+    <div className="justify-between md:flex md:justify-between min-h-screen">
+      <div className="hidden md:flex">
+        <LeftBar />
+      </div>
       <div className="flex flex-1 flex-col bg-white">
-
+        <Header isOpen={isOpen} setIsOpen={setIsOpen} />
         <main className="">
-          <div className="">{children}</div>
+          <div className="">{children}
+            <Analytics /></div>
         </main>
       </div>
-      <ThreadsList />
+      <ThreadsList isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 }

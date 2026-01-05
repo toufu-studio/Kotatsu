@@ -69,19 +69,19 @@ export default function PostsList({ threadId }: { threadId: number }) {
 
   return (
     <main className="flex-1 flex flex-col justify-end">
-      <div className="flex flex-col items-center mb-2 mt-6">
-        <div className="flex flex-col w-[690px]">
+      <div className="flex flex-col items-center mb-2 mt-6 w-full">
+        <div className="flex flex-col w-full md:w-[690px] md:items-center">
           {posts.map((post, index) => (
-            <div key={post.id} className="mb-5 bg-white px-10 py-1 hover:bg-gray-50">
+            <div key={post.id} className="mb-5 bg-white px-10 md:px-5 xl:px-10 py-1 hover:bg-gray-50">
 
-              <div className="flex justify-between w-150 items-center">
+              <div className="flex justify-between w-full md:w-150 items-center">
                 <div className="flex items-center">
                   <div className="mr-2 text-sm text-gray-500">{index + 1}</div>
                   <div className="text-sm text-gray-500">{post.username}</div>
                 </div>
                 <div className="whitespace-nowrap text-xs text-gray-400">{post.postedAt}</div>
               </div>
-              <div className="mt-1 text-sm w-120">{post.content}</div>
+              <div className="mt-1 text-sm w-full md:w-120">{post.content}</div>
             </div>
 
 

@@ -121,15 +121,15 @@ export default function LoginForm() {
                                     {showUsernameError && <p className="text-red-500 text-xs mb-2">ユーザー名が既に使用されています。</p>}
                                 </div>
                                 <input value={userName} onChange={(e) => { const value = e.target.value; if (value.includes(" ") || value.includes("　")) { setShowSpaceError(true); return; } setShowSpaceError(false); setShowUsernameError(false); setUserName(value); }} maxLength={30} placeholder="John_Smith" className="w-full h-10 border p-1.5 border-gray-200 rounded-lg mb-1"></input>
-                                <div className="text-right text-sm text-gray-500">残り{maxchar - userName.length}文字</div>
+                                <div className="mb-5 text-right text-sm text-gray-500">残り{maxchar - userName.length}文字</div>
                                 <div className="flex items-center">
                                     <p className="mb-3">* パスワード（変更不可）</p>
                                     {showPasswordSpaceError && <p className="text-red-500 text-xs mb-2">スペースは使用できません。</p>}
                                 </div>
                                 <input value={userPassword} onChange={(e) => { const value = e.target.value; if (value.includes(" ") || value.includes("　")) { setShowPasswordSpaceError(true); return; } setShowPasswordSpaceError(false); setUserPassword(value); }} maxLength={20} placeholder="Password123" type="password" className="w-full h-10 border p-1.5 border-gray-200 rounded-lg mb-1"></input>
                                 <div className="text-right text-sm text-gray-500">残り{maxPasswordChar - userPassword.length}文字</div>
-                                <div className="flex justify-end mt-5 gap-5 items-center">
-                                    <img src="/kotatsu_logo.svg" alt="" className="w-auto h-10" />
+                                <div className="flex flex-col md:flex-row justify-end mt-10 md:mt-5 gap-5 items-center">
+                                    <img src="/kotatsu_logo.svg" alt="" className="w-auto h-10 mb-4" />
                                     <button onClick={() => { setIsOpen(false), setIsLoginOpen(true); }} className="text-sm">アカウントをお持ちの場合</button>
                                     <button onClick={() => {
                                         SignUp();
@@ -148,7 +148,7 @@ export default function LoginForm() {
 
                         <div className="hidden md:flex justify-center flex-col bg-white border-r border-gray-200 pr-10 z-10 mr-5 ml-10 lg:ml-auto">
                             <div className=" flex flex-col text-end gap-10">
-                                <h1 className="font-bold text-5xl lg:text-9xl">Sign In</h1>
+                                <h1 className="font-bold text-5xl lg:text-9xl">Login</h1>
                                 <p className="text-sm lg:text-base">お久しぶりです。<br />早速、会話に参加しましょう。</p>
                             </div>
                         </div>
@@ -156,18 +156,19 @@ export default function LoginForm() {
                             <div className="flex flex-col w-full max-w-md items-center md:items-start">
                                 <h2 className="text-xl font-bold mb-5">KOTATSUに入る</h2>
                                 <div className="flex items-center">
-                                   <p className="mb-3">ユーザー名</p>
+                                    <p className="mb-3">ユーザー名</p>
                                     {showLoginError && <p className="text-red-500 text-xs mb-3">ユーザー名またはパスワードが違います。</p>}
                                 </div>
                                 <input value={userName} onChange={(e) => { const value = e.target.value; if (value.includes(" ") || value.includes("　")) { setShowSpaceError(true); return; } setShowSpaceError(false); setUserName(value); }} maxLength={30} placeholder="John_Smith" className="w-full h-10 border p-1.5 border-gray-200 rounded-lg mb-1"></input>
-                                <div className="text-right text-sm text-gray-500">残り{maxchar - userName.length}文字</div>
+                                <div className="mb-5 text-right text-sm text-gray-500">残り{maxchar - userName.length}文字</div>
                                 <div className="flex items-center">
                                     <p className="mb-3">パスワード</p>
+                                    {showPasswordSpaceError && <p className="text-red-500 text-xs mb-2">スペースは使用できません。</p>}
                                 </div>
                                 <input value={userPassword} onChange={(e) => { const value = e.target.value; if (value.includes(" ") || value.includes("　")) { setShowPasswordSpaceError(true); return; } setShowPasswordSpaceError(false); setUserPassword(value); }} maxLength={20} placeholder="Password123" type="password" className="w-full h-10 border p-1.5 border-gray-200 rounded-lg mb-1"></input>
                                 <div className="text-right text-sm text-gray-500">残り{maxPasswordChar - userPassword.length}文字</div>
-                                <div className="flex justify-end mt-5 gap-5 items-center">
-                                    <img src="/kotatsu_logo.svg" alt="" className="w-auto h-10" />
+                                <div className="flex flex-col md:flex-row justify-end mt-10 md:mt-5 gap-5 items-center">
+                                    <img src="/kotatsu_logo.svg" alt="" className="w-auto h-10 mb-4" />
                                     <button onClick={() => { setIsOpen(true), setIsLoginOpen(false); }} className="text-sm">アカウントをお持ちでない場合</button>
                                     <button onClick={() => {
                                         LogIn();
@@ -177,8 +178,8 @@ export default function LoginForm() {
                         </div>
                     </div>
                 </div>}
+                </div>
             </div>
-        </div>
 
-    );
+            );
 }

@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import LoginForm from "../components/loginForm";
 
+import { FiSettings } from "react-icons/fi";
+
 
 export default function Profile() {
 
@@ -43,11 +45,11 @@ export default function Profile() {
         const confirm = window.confirm("アカウントを削除しますか？今までの投稿は残り、アカウントは二度と復旧できません。")
         if (!confirm) return;
 
-        const {error} = await supabase.rpc(`delete_user_self`);
+        const { error } = await supabase.rpc(`delete_user_self`);
 
-        if(error){
+        if (error) {
             alert("エラーが発生し、アカウント削除に失敗しました。" + error.message);
-        }else {
+        } else {
             alert("アカウント削除が完了しました。ご利用ありがとうございました。");
             await supabase.auth.signOut();
             window.location.href = "/home";
@@ -59,12 +61,14 @@ export default function Profile() {
 
             <div className="w-full md:w-[690px] bg-white min-h-full px-10 py-8">
                 <div className="flex flex-col h-screen">
-                    <div className="flex flex-col border-b border-gray-200 mb-5">
-                        <div className="text-2xl font-bold mb-5">Setting</div>
+                    <div className="flex items-center border-b border-gray-200 mb-5 gap-3">
+                        <FiSettings className="w-7 h-7 mb-5" />
+                        <div className="text-2xl font-bold mb-5">Settings</div>
                     </div>
-                    <div className="flex flex-col gap-5 mt-20">
-                        <button onClick={Logout} className="bg-red-500 h-10 text-white">ログアウト</button>
-                        <button onClick={()=>{deleteAccount();}} className="bg-red-500 h-10 text-white">アカウントを削除</button>
+                    <div className="flex flex-col gap-5 mt-100 md:mt-150">
+                        <h2 className="text-2xl font-bold">アカウント</h2>
+                        <button onClick={Logout} className="bg-black h-10 text-white">ログアウト</button>
+                        <button onClick={() => { deleteAccount(); }} className="bg-red-500 h-10 text-white">アカウントを削除</button>
                     </div>
                 </div>
             </div>

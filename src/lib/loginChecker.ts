@@ -14,7 +14,6 @@ export function useLoginChecker(){
             const { data: { user } } = await supabase.auth.getUser();
             setUser(user)
             setLoading(false)
-            if (!user) router.push("/home");
         };
         checkLogin();
 

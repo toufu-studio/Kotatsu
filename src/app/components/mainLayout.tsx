@@ -8,6 +8,7 @@ import LeftBar from "./leftBar";
 import LoginForm from "./loginForm";
 import Header from "./header";
 import { Analytics } from "@vercel/analytics/next";
+import { usePathname } from "next/navigation";
 
 export default function MainLayout({
   children,
@@ -19,9 +20,24 @@ export default function MainLayout({
 
   const [isOpen, setIsOpen] = useState(false);
 
-  if (loading && !user) return null;
+  const pathname = usePathname();
 
-  if (!user) { return <LoginForm />; }
+  const noLogInPage = ["/tos", "/privacy"];
+  const isNoLogInPage = noLogInPage.includes(pathname);
+
+  if (loading) return null;
+
+    if (isNoLogInPage && !user) {
+    return (
+      <div>
+        {children}
+      </div>
+    )
+  }
+
+  if (!isNoLogInPage && !user) { return <LoginForm />; }
+
+  if (!user) return null;
 
   return (
     <div className="justify-between md:flex md:justify-between min-h-screen">

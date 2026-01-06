@@ -3,7 +3,7 @@
 export default function tos() {
     return (
         <div className="flex fixed w-screen h-screen inset-0 bg-white z-50 justify-center overflow-auto">
-            <div className="flex flex-col text-center mt-20 w-250 text-left">
+            <div className="flex flex-col text-center mt-20 mx-10 w-250 text-left">
                 <h1 className="text-5xl mb-10 font-bold">利用規約</h1>
                 <p>この利用規約（以下，「本規約」といいます。）は，Kotatsu（以下，「当方」といいます。）がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。本サービスを利用することによって、ユーザーは本規約に同意したものとなります。</p>
                 <h2 className="text-2xl font-bold my-5">第1条（適用）</h2>

@@ -3,7 +3,7 @@
 export default function tos() {
     return (
         <div className="flex fixed w-screen h-screen inset-0 bg-white z-50 justify-center overflow-auto">
-            <div className="flex flex-col text-center mt-20 w-250 text-left">
+            <div className="flex flex-col text-center mt-20 mx-10 w-250 text-left h-250">
                 <h1 className="text-5xl mb-10 font-bold">プライバシーポリシー</h1>
                 <h2 className="text-2xl font-bold my-5">定義</h2>
                 <p>

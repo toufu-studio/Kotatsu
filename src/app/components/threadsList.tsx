@@ -87,5 +87,10 @@ export default function ThreadsList({ isOpen, setIsOpen }: { isOpen: boolean; se
         <FiSettings className="w-7 h-7 stroke-[1.6]" />
       </Link>
     </div>
+    <div className="flex text-xs mt-5 ml-7 gap-2 text-gray-400">
+      <a href="/tos" target="_blank">利用規約</a>
+      <a href="/privacy" target="_blank">プライバシーポリシー</a>
+      <p>©2025 Kotatsu</p>
+    </div>
   </div>);
 }

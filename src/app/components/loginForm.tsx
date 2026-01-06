@@ -135,7 +135,7 @@ export default function LoginForm() {
                                         SignUp();
                                     }} className="bg-[#8d6f71] hover:bg-[#af8f92] text-white font-bold py-2 px-4 rounded-3xl cursor-pointer">サインアップ</button>
                                 </div>
-                                <p className="text-xs mt-5">アカウントを作成することにより、<a href="/tos" target="_blank" className="text-blue-400">利用規約</a>と<a href="/privacy" target="_blank" className="text-blue-400">プライバシーポリシー</a>に同意したものとみなされます。</p>
+                                <p className="text-xs mt-5 w-80 md:w-full">アカウントを作成することにより、<a href="/tos" target="_blank" className="text-blue-400">利用規約</a>と<a href="/privacy" target="_blank" className="text-blue-400">プライバシーポリシー</a>に同意したものとみなされます。</p>
                             </div>
                         </div>
                     </div>
@@ -175,6 +175,7 @@ export default function LoginForm() {
                                         LogIn();
                                     }} className="bg-[#8d6f71] hover:bg-[#af8f92] text-white font-bold py-2 px-4 rounded-3xl cursor-pointer">サインイン</button>
                                 </div>
+                                <p className="text-xs mt-5 w-80 md:w-full">アカウントを作成することにより、<a href="/tos" target="_blank" className="text-blue-400">利用規約</a>と<a href="/privacy" target="_blank" className="text-blue-400">プライバシーポリシー</a>に同意したものとみなされます。</p>
                             </div>
                         </div>
                     </div>

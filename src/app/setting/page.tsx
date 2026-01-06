@@ -49,7 +49,8 @@ export default function Profile() {
             alert("エラーが発生し、アカウント削除に失敗しました。" + error.message);
         }else {
             alert("アカウント削除が完了しました。ご利用ありがとうございました。");
-            window.location.href = "/";
+            await supabase.auth.signOut();
+            window.location.href = "/home";
         }
     }
 

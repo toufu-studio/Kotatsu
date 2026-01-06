@@ -76,7 +76,7 @@ export default function ApplyButton() {
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center">
                     <div className="absolute inset-0 bg-black/50" onClick={() => setIsOpen(false)}></div>
-                    <div className="bg-white rounded-lg px-5 py-5 z-10 w-[700px] h-[450px]">
+                    <div className="bg-white rounded-lg px-5 py-4 z-10 w-[700px] h-[450px]">
                         <div className="hover:bg-gray-100 rounded-full w-5 h-5 flex items-center justify-center cursor-pointer">
                             <FiX className="" onClick={() => setIsOpen(false)} />
                         </div>
@@ -86,11 +86,11 @@ export default function ApplyButton() {
                         </div>
 
                         <p className="mb-3">トピックのタイトル</p>
-                        <textarea value={title} onChange={(e) => setTitle(e.target.value)} name="" id="" maxLength={35} className="w-full h-10 border p-1.5 border-gray-200 rounded-lg mb-1"></textarea>
+                        <textarea value={title} onChange={(e) => setTitle(e.target.value)} name="" id="" maxLength={35} placeholder="新作のゲームでおすすめ教えて" className="w-full h-10 border p-1.5 border-gray-200 rounded-lg mb-1"></textarea>
                         <div className="text-right text-sm text-gray-500">残り{maxTitleChar - title.length}文字</div>
 
                         <p className="mb-3">最初の発言</p>
-                        <textarea value={firstStatement} onChange={(e) => setFirstStatement(e.target.value)} name="" id="" maxLength={maxchar} className="w-full h-20 border p-1.5 border-gray-200 rounded-lg mb-1"></textarea>
+                        <textarea value={firstStatement} onChange={(e) => setFirstStatement(e.target.value)} name="" id="" maxLength={maxchar} placeholder="セールが来てるのに何買えばいいかわからないので頼む" className="w-full h-20 border p-1.5 border-gray-200 rounded-lg mb-1"></textarea>
                         <div className="text-right text-sm text-gray-500">残り{maxchar - firstStatement.length}文字</div>
                         <div className="flex justify-end mt-5 items-center gap-5">
                             {isApply && <p className="text-red-500 text-sm">既に応募済みです :)</p>}

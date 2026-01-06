@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import LoginForm from "../components/loginForm";
 
+import { FiUser } from "react-icons/fi";
+
 
 export default function Profile() {
 
@@ -44,10 +46,11 @@ export default function Profile() {
 
             <div className="w-full md:w-[690px] bg-white min-h-full px-10 py-8">
                 <div className="flex flex-col h-screen">
-                    <div className="flex flex-col border-b border-gray-200 mb-5">
+                    <div className="flex items-center border-b border-gray-200 mb-5 gap-3">
+                        <FiUser className="w-7 h-7 mb-5" />
                         <div className="text-2xl font-bold mb-5">Profile</div>
                     </div>
-                    <div className="text-lg mb-5">DisplayName: {displayName}</div>
+                    <div className="text-3xl mb-1">{displayName}</div>
                     <div className="text-lg">{registrationDate}からこたつに入っています。</div>
                 </div>
             </div>

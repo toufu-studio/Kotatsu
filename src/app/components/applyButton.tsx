@@ -33,7 +33,7 @@ export default function ApplyButton() {
 
     const SendThread = async () => {
 
-        if (isRecruiting) {
+        if (!isRecruiting) {
             setIsRecrutingError(true);
             return;
         }
@@ -72,7 +72,7 @@ export default function ApplyButton() {
 
     return (
         <div>
-            {isRecruiting ? (<button onClick={() => {setIsOpen(true); setIsRecrutingError(false);}} className="bg-[#8d6f71] hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center">トピックを応募</button>) : (<div className="bg-[#8d6f71] hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center">募集開始待機中</div>)}
+            {isRecruiting ? (<button onClick={() => {setIsOpen(true); setIsRecrutingError(false); ;setIsApply(false);}} className="bg-[#8d6f71] hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center">トピックを応募</button>) : (<div className="bg-[#8d6f71] hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center">募集開始待機中</div>)}
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center">
                     <div className="absolute inset-0 bg-black/50" onClick={() => setIsOpen(false)}></div>
@@ -94,9 +94,9 @@ export default function ApplyButton() {
                         <div className="text-right text-sm text-gray-500">残り{maxchar - firstStatement.length}文字</div>
                         <div className="flex justify-end mt-5 items-center gap-5">
                             {isApply && <p className="text-red-500 text-sm">既に応募済みです :)</p>}
+                            {isRecrutingError && <p className="text-red-500 text-sm">募集時間外です :)</p>}
                             <button onClick={() => {
                                 SendThread();
-                                setIsOpen(false);
                             }} className="bg-[#8d6f71] hover:bg-[#af8f92] text-white font-bold py-2 px-4 rounded-3xl cursor-pointer">応募する</button>
                         </div>
                     </div>

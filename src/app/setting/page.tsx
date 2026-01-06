@@ -39,6 +39,20 @@ export default function Profile() {
         return <LoginForm />;
     }
 
+    const deleteAccount = async () => {
+        const confirm = window.confirm("アカウントを削除しますか？今までの投稿は残り、アカウントは二度と復旧できません。")
+        if (!confirm) return;
+
+        const {error} = await supabase.rpc(`delete_user_self`);
+
+        if(error){
+            alert("エラーが発生し、アカウント削除に失敗しました。" + error.message);
+        }else {
+            alert("アカウント削除が完了しました。ご利用ありがとうございました。");
+            window.location.href = "/";
+        }
+    }
+
     return (
         <div className="flex flex-col min-h-screen">
 
@@ -49,7 +63,7 @@ export default function Profile() {
                     </div>
                     <div className="flex flex-col gap-5 mt-20">
                         <button onClick={Logout} className="bg-red-500 h-10 text-white">ログアウト</button>
-                        <button className="bg-red-500 h-10 text-white">アカウントを削除</button>
+                        <button onClick={()=>{deleteAccount();}} className="bg-red-500 h-10 text-white">アカウントを削除</button>
                     </div>
                 </div>
             </div>

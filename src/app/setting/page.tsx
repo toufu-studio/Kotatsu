@@ -57,18 +57,18 @@ export default function Profile() {
     }
 
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen bg-gray-50">
 
-            <div className="w-full md:w-[690px] bg-white min-h-full px-10 py-8">
+            <div className="w-full md:w-[690px] bg-background text-foreground h-100 mx-10 my-8 px-10 py-8 rounded-xl shadow-[0px_0px_20px_0.1px_rgba(0,3,3,0.03)]">
                 <div className="flex flex-col h-screen">
                     <div className="flex items-center border-b border-gray-200 mb-5 gap-3">
                         <FiSettings className="w-7 h-7 mb-5" />
                         <div className="text-2xl font-bold mb-5">Settings</div>
                     </div>
-                    <div className="flex flex-col gap-5 mt-100 md:mt-150">
-                        <h2 className="text-2xl font-bold">アカウント</h2>
-                        <button onClick={Logout} className="bg-black h-10 text-white">ログアウト</button>
-                        <button onClick={() => { deleteAccount(); }} className="bg-red-500 h-10 text-white">アカウントを削除</button>
+                    <div className="flex flex-col gap-5 mt-100 md:mt-0">
+                        <h2 className="text-xl font-bold">Account</h2>
+                        <button onClick={Logout} className="bg-[#302833] h-10 text-white">ログアウト</button>
+                        <button onClick={() => { deleteAccount(); }} className="bg-[#b94047] h-10 text-white">アカウントを削除</button>
                     </div>
                 </div>
             </div>

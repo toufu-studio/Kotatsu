@@ -2,7 +2,7 @@
 
 import { supabase } from "@/lib/supabase";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export default function LoginForm() {
@@ -17,18 +17,22 @@ export default function LoginForm() {
     const [showPasswordSpaceError, setShowPasswordSpaceError] = useState(false);
     const [showUsernameError, setShowUsernameError] = useState(false);
     const [showLoginError, setShowLoginError] = useState(false);
-        const [showPasswordError, setShowPasswordError] = useState(false);
+    const [showPasswordError, setShowPasswordError] = useState(false);
 
     const maxchar = 30;
     const maxPasswordChar = 20;
     const email = `${userName}@example.com`;
+
+    const pathname = usePathname();
 
     //ユーザーがログインしてるか確認するとこ
     useEffect(() => {
         const checkLogin = async () => {
             const { data: { user } } = await supabase.auth.getUser();
             setUser(user)
-            if (!user) setIsOpen(true);
+            if (!user && pathname !== "/home") {
+                setIsOpen(true);
+            }
         };
         checkLogin();
 
@@ -114,7 +118,7 @@ export default function LoginForm() {
 
                         <div className="hidden md:flex justify-center flex-col bg-white border-r border-gray-200 pr-10 z-10 mr-5 ml-10 lg:ml-auto">
                             <div className=" flex flex-col text-end gap-10">
-                                <h1 className="font-bold text-5xl lg:text-9xl">Sign Up</h1>
+                                <h1 className="font-bold text-5xl lg:text-9xl font-arial">Sign Up</h1>
                                 <p className="text-sm lg:text-base">今までにないほどハイスピードな会話に参加しましょう。<br />個人情報は、不要です。</p>
                             </div>
                         </div>
@@ -156,7 +160,7 @@ export default function LoginForm() {
 
                         <div className="hidden md:flex justify-center flex-col bg-white border-r border-gray-200 pr-10 z-10 mr-5 ml-10 lg:ml-auto">
                             <div className=" flex flex-col text-end gap-10">
-                                <h1 className="font-bold text-5xl lg:text-9xl">Login</h1>
+                                <h1 className="font-bold text-5xl lg:text-9xl font-arial">Login</h1>
                                 <p className="text-sm lg:text-base">お久しぶりです。<br />早速、会話に参加しましょう。</p>
                             </div>
                         </div>
@@ -187,8 +191,8 @@ export default function LoginForm() {
                         </div>
                     </div>
                 </div>}
-                </div>
             </div>
+        </div>
 
-            );
+    );
 }

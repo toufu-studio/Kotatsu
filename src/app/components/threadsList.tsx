@@ -54,20 +54,25 @@ export default function ThreadsList({ isOpen, setIsOpen }: { isOpen: boolean; se
     };
   }, []);
 
-  return (<div className={`flex-col bg-white border-0 md:border-l border-gray-200 h-screen top-0 ${isOpen ? "fixed flex w-full mt-20" : "hidden"} md:flex md:sticky md:mt-0 lg:w-[35rem] min-[1390px]:w-[30rem] xl:w-[35rem] 2xl:w-[40%]`}>
+  return (<div className={`flex-col bg-background text-foreground border-0 md:border-l border-gray-200 h-screen top-0 ${isOpen ? "fixed flex w-full mt-20" : "hidden"} md:flex md:sticky md:mt-0 lg:w-[35rem] min-[1390px]:w-[30rem] xl:w-[35rem] 2xl:w-[40%]`}>
 
     <div className="2xl:!w-85 xl:!w-85 lg:!w-85 sm:w-40 i flex flex-col mt-10 md:mt-20 ml-7 mr-7 md:ml-7 md:mr-0 border-0 md:border-b border-gray-200">
       <div className="text-xl font-bold mb-1 ml-2.5">現在のこたつ</div>
       <ul className="flex flex-col items-start mb-5">
         {thread.map((thread) => (
-          <Link key={thread.id} href={`/thread/${thread.id}`} className="w-full pb-2.5 pt-2.5 hover:bg-gray-100 duration-200 pr-2.5 pl-2.5 cursor-pointer">{thread.title}<div className="text-xs text-gray-400 pt-1">{thread.post_count}件の会話</div></Link>))}
+          <Link key={thread.id} href={`/thread/${thread.id}`} className="w-full pb-2.5 pt-2.5 hover:bg-gray-100 duration-200 pr-2.5 pl-2.5 cursor-pointer leading-relaxed">{thread.title}<div className="text-xs text-gray-400 pt-1">{thread.post_count}件の会話</div></Link>))}
         {thread.length === 0 && (<p>こたつがありません。応募しよう！</p>)}
       </ul>
-      <div className="text-xl font-bold mb-1 ml-2.5">本日のこたつ（AI）</div>
+      <div className="text-xl font-bold mb-1 ml-2.5">今日のこたつ（AI）</div>
       <ul className="flex flex-col items-start mb-5">
-        <div className="w-full pb-2.5 pt-2.5 hover:bg-gray-100 duration-200 pr-2.5 pl-2.5 cursor-pointer">{"実装準備中"}<div className="text-xs text-gray-400 pt-1">{0}件の会話</div></div>
+        <div className="w-full pb-2.5 pt-2.5 hover:bg-gray-100 duration-200 pr-2.5 pl-2.5 cursor-pointer leading-relaxed">{"実装準備中"}<div className="text-xs text-gray-400 pt-1">{0}件の会話</div></div>
         {/*<Link href="/thread/4" className="w-full pb-2.5 pt-2.5 hover:bg-gray-100 duration-200 pr-2.5 pl-2.5 cursor-pointer">{"実装準備中"}<div className="text-xs text-gray-400 pt-1">{0}件の会話</div></Link>*/}
       </ul>
+      {/*<div className="text-xl font-bold mb-1 ml-2.5">フィード風のこたつ</div>
+      <ul className="flex flex-col items-start mb-5">
+        <div className="w-full pb-2.5 pt-2.5 hover:bg-gray-100 duration-200 pr-2.5 pl-2.5 cursor-pointer leading-relaxed">{"実装準備中"}<div className="text-xs text-gray-400 pt-1">{0}件の会話</div></div>
+        <Link href="/thread/4" className="w-full pb-2.5 pt-2.5 hover:bg-gray-100 duration-200 pr-2.5 pl-2.5 cursor-pointer">{"実装準備中"}<div className="text-xs text-gray-400 pt-1">{0}件の会話</div></Link>
+      </ul>*/}
       <div className="flex flex-col mb-5 items-start gap-2">
         <ApplyButton />
       </div>

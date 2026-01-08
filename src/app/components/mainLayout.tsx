@@ -1,14 +1,16 @@
 "use client";
 
 import { useLoginChecker } from "@/lib/loginChecker";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import ThreadsList from "./threadsList";
 import LeftBar from "./leftBar";
 import LoginForm from "./loginForm";
 import Header from "./header";
 import { Analytics } from "@vercel/analytics/next";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import path from "path";
+import { routeModule } from "next/dist/build/templates/pages";
 
 export default function MainLayout({
   children,
@@ -21,9 +23,16 @@ export default function MainLayout({
   const [isOpen, setIsOpen] = useState(false);
 
   const pathname = usePathname();
+  const router = useRouter();
 
   const noLogInPage = ["/tos", "/privacy"];
   const isNoLogInPage = noLogInPage.includes(pathname);
+
+  useEffect(() => {
+    if (!loading && !user && !isNoLogInPage && pathname !== "/home") {
+      router.push("/home");
+    }
+  }, [user, loading, isNoLogInPage, pathname, router])
 
   if (loading) return null;
 
@@ -35,9 +44,14 @@ export default function MainLayout({
     )
   }
 
-  if (!isNoLogInPage && !user) { return <LoginForm />; }
+  if (!user) {
+    if (pathname !== "/home"){
 
-  if (!user) return null;
+    return null;
+    }
+
+    return <LoginForm />;
+  }
 
   return (
     <div className="justify-between md:flex md:justify-between min-h-screen">

@@ -11,32 +11,32 @@ export default async function archivePostPage({params}: {params: Promise<{id: st
   if (!thread) return <div>No Found</div>;
 
   return (
-    <div className="flex flex-col min-h-screen">
-      
-      <div className="flex-1 flex flex-col">
-        <main className="flex-1 flex flex-col justify-start">
-      <div className="flex flex-col items-center mb-2 mt-6">
-        <div className="flex flex-col w-[690px]">
+    <main className="flex-1 flex flex-col justify-start bg-gray-50 h-screen">
+      <div className="flex flex-col items-center mb-2 mt-6 w-full">
+        <div className="flex flex-col w-full md:w-[690px] md:items-center">
           {posts?.map((post, index) => (
-            <div key={post.id} className="mb-5 bg-white px-10 py-1 hover:bg-gray-50">
+            <div key={post.id} className="w-full md:w-150 mb-5 bg-background text-foreground px-10 md:px-5 xl:px-10 py-5 hover:bg-gray-50 rounded-xl shadow-[0px_0px_20px_0.1px_rgba(0,3,3,0.03)]">
 
-              <div className="flex justify-between w-150 items-center">
-                <div className="flex items-center">
+              <div className="flex justify-between w-full md:w-full items-center">
+                <div className="flex items-center w-full">
                   <div className="mr-2 text-sm text-gray-500">{index + 1}</div>
-                  <div className="text-sm text-gray-500">{post.user_name}</div>
+                  <div className="flex items-center w-full justify-between">
+                    <div className="text-sm text-gray-500">{post.user_name}</div>
+                    <div className="whitespace-nowrap text-xs text-gray-400">{post.posted_at}</div>
+                  </div>
                 </div>
-                <div className="whitespace-nowrap text-xs text-gray-400">{post.created_at}</div>
               </div>
-              <div className="mt-1 text-sm w-120">{post.content}</div>
+              <div className="mt-5 text-sm w-full md:w-120 whitespace-pre-wrap wrap-break-word leading-relaxed">{post.content}</div>
             </div>
 
 
           ))}
         </div>
       </div>
+      {
+
+      }
     </main>
-      </div>
-    </div>
 
   );
 } 

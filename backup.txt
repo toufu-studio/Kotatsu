@@ -1,59 +1,26 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+<div className="flex flex-col min-h-screen">
+      
+      <div className="flex-1 flex flex-col">
+        <main className="flex-1 flex flex-col justify-start">
+      <div className="flex flex-col items-center mb-2 mt-6">
+        <div className="flex flex-col w-[690px]">
+          {posts?.map((post, index) => (
+            <div key={post.id} className="mb-5 bg-white px-10 py-1 hover:bg-gray-50">
 
-import { useLoginChecker } from "../lib/loginChecker";
-
-import ThreadsList from "./components/threadsList";
-
-import { threads, posts1, posts2, posts3, posts4 } from "./data";
-import LeftBar from "./components/leftBar";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "Kotatsu",
-  description: "ハイスピードな、あたたかいSNS",
-};
+              <div className="flex justify-between w-150 items-center">
+                <div className="flex items-center">
+                  <div className="mr-2 text-sm text-gray-500">{index + 1}</div>
+                  <div className="text-sm text-gray-500">{post.user_name}</div>
+                </div>
+                <div className="whitespace-nowrap text-xs text-gray-400">{post.created_at}</div>
+              </div>
+              <div className="mt-1 text-sm w-120">{post.content}</div>
+            </div>
 
 
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const { user } = useLoginChecker();
-  if (!user) {return null;}
-  return (
-    <html lang="ja">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="flex justify-between sm:max-w-sm md:!max-w-md lg:!max-w-lg xl:!max-w-xl 2xl:!max-w-full">
-          <LeftBar />
-          <div className="flex flex-1 flex-col bg-white">
-
-            <main className="">
-              <div className="">{children}</div>
-            </main>
-          </div>
-          <ThreadsList />
+          ))}
         </div>
-      </body>
-    </html>
-  );
-}
-
-//スマホレイアウト（後回し）
-//基本UI完成が最優先。スレ立て関連のUIができてない。
-//入力バー周り。データベース優先。
-//ちょっと色を付けたい。ボタンとかに？
+      </div>
+    </main>
+      </div>
+    </div>

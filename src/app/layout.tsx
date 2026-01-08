@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Zen_Kaku_Gothic_New } from "next/font/google";
+import { Geist, Geist_Mono, Zen_Kaku_Gothic_New, Kosugi_Maru,M_PLUS_Rounded_1c } from "next/font/google";
 import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/next"
@@ -28,6 +28,20 @@ const zenKakuGothicNew = Zen_Kaku_Gothic_New({
   style: ["normal"],
 });
 
+const kosugiMaru = Kosugi_Maru({
+  variable: "--font-kosugi-maru",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal"],
+});
+
+const m_Plus_Rounded_1c = M_PLUS_Rounded_1c({
+  variable: "--font-m-plus-rounded-1c",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal"],
+});
+
 export const metadata: Metadata = {
   title: "Kotatsu",
   description: "ハイスピードな、あたたかいSNS",
@@ -44,7 +58,7 @@ export default function RootLayout({
     <html lang="ja">
       <head><meta name="viewport" content="width=device-width, initial-scale=1" /></head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${kosugiMaru.variable} ${m_Plus_Rounded_1c.variable} antialiased`}
       >
         <MainLayout>
           {children}

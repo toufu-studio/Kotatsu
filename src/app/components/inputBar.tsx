@@ -46,7 +46,7 @@ export default function InputBar({ threadId }: { threadId: number }) {
     };
 
     return (
-        <div className="sticky bottom-0 h-20 border-t border-gray-200 flex items-center bg-white shadow-[0_-1px_4px_rgba(0,0,0,0.05)] px-4 gap-4">
+        <div className="sticky bottom-0 h-20 border-t border-gray-200 flex items-center bg-background text-foreground shadow-[0_-1px_4px_rgba(0,0,0,0.05)] px-4 gap-4">
 
             <div className="relative flex items-center">
                 <button onClick={() => setShowPicker(!showPicker)} className="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center cursor-pointer">

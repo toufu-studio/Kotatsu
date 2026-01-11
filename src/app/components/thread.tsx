@@ -68,7 +68,7 @@ export default function PostsList({ threadId }: { threadId: number }) {
 
 
   return (
-    <main className="flex-1 flex flex-col justify-end bg-gray-50">
+    <main className="flex-1 flex flex-col justify-end bg-secondbg">
       <div className="flex flex-col items-center mb-2 mt-6 w-full">
         <div className="flex flex-col w-full md:w-[690px] md:items-center">
           {posts.map((post, index) => (

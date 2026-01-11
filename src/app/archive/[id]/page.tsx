@@ -11,7 +11,7 @@ export default async function archivePostPage({params}: {params: Promise<{id: st
   if (!thread) return <div>No Found</div>;
 
   return (
-    <main className="flex-1 flex flex-col justify-start bg-gray-50 h-screen">
+    <main className="flex-1 flex flex-col justify-start bg-secondbg h-full">
       <div className="flex flex-col items-center mb-2 mt-6 w-full">
         <div className="flex flex-col w-full md:w-[690px] md:items-center">
           {posts?.map((post, index) => (

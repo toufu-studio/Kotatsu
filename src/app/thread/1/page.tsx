@@ -32,7 +32,6 @@ if (loading || !isMinLoadTime) {
         <Thread threadId={currentThreadId} />
       </div>
       <InputBar threadId={currentThreadId} />
-    </div>
-
+</div>
   );
 } 

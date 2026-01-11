@@ -28,6 +28,7 @@ export default function MainLayout({
   const noLogInPage = ["/tos", "/privacy"];
   const isNoLogInPage = noLogInPage.includes(pathname);
 
+  //ログインしてない人をホームに送る
   useEffect(() => {
     if (!loading && !user && !isNoLogInPage && pathname !== "/home") {
       router.push("/home");
@@ -36,7 +37,7 @@ export default function MainLayout({
 
   if (loading) return null;
 
-    if (isNoLogInPage && !user) {
+  if (isNoLogInPage && !user) {
     return (
       <div>
         {children}
@@ -45,9 +46,9 @@ export default function MainLayout({
   }
 
   if (!user) {
-    if (pathname !== "/home"){
+    if (pathname !== "/home") {
 
-    return null;
+      return null;
     }
 
     return <LoginForm />;
@@ -58,7 +59,7 @@ export default function MainLayout({
       <div className="hidden md:flex">
         <LeftBar />
       </div>
-      <div className="flex flex-1 flex-col bg-white">
+      <div className="flex flex-1 flex-col bg-secondbg">
         <Header isOpen={isOpen} setIsOpen={setIsOpen} />
         <main className="">
           <div className="">{children}

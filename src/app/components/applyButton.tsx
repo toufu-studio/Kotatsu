@@ -3,8 +3,11 @@
 import { useEffect, useState } from "react";
 import { FiX } from "react-icons/fi";
 import { supabase } from "@/lib/supabase";
+import { useBGTheme } from "@/lib/themeContext";
 
 export default function ApplyButton() {
+
+    const {themeColor} = useBGTheme();
 
     const [title, setTitle] = useState("");
     const [firstStatement, setFirstStatement] = useState("");
@@ -72,9 +75,18 @@ export default function ApplyButton() {
         setPushApply(true);
     };
 
+    const getButtonColor = () =>{
+        if (themeColor === "rgb(249, 250, 251)") {
+            return "rgb(141, 111, 113)";
+        }
+        return `color-mix(in srgb, ${themeColor}, black 15%)`;
+    }
+
+    const buttonColor = getButtonColor();
+
     return (
         <div>
-            {isRecruiting ? (<button onClick={() => { setIsOpen(true); setIsRecrutingError(false);; setIsApply(false); }} className="bg-[#8d6f71] hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center text-sm">トピックを応募</button>) : (<div className="bg-[#8d6f71] hover:bg-[#9c7c7e] duration-100 text-white py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center text-sm">募集開始待機中</div>)}
+            {isRecruiting ? (<button onClick={() => { setIsOpen(true); setIsRecrutingError(false);; setIsApply(false); }} style={{backgroundColor: buttonColor}} className="hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center text-sm">トピックを応募</button>) : (<div  style={{backgroundColor: buttonColor}} className="hover:bg-[#9c7c7e] duration-100 text-white py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center text-sm">募集開始待機中</div>)}
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center">
                     <div className="absolute inset-0 bg-black/50" onClick={() => setIsOpen(false)}></div>

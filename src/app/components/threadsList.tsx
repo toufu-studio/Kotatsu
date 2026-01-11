@@ -8,6 +8,8 @@ import { supabase } from "@/lib/supabase";
 
 import { FiUser, FiHome, FiSettings, FiBook } from "react-icons/fi";
 
+import { useBGTheme } from "@/lib/themeContext";
+
 export default function ThreadsList({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (value: boolean) => void; }) {
 
   const [thread, setThread] = useState<{ id: number, title: string, post_count: number }[]>([]);
@@ -54,7 +56,17 @@ export default function ThreadsList({ isOpen, setIsOpen }: { isOpen: boolean; se
     };
   }, []);
 
-  return (<div className={`flex-col bg-background text-foreground border-0 md:border-l border-gray-200 h-screen top-0 ${isOpen ? "fixed flex w-full mt-20" : "hidden"} md:flex md:sticky md:mt-0 lg:w-[35rem] min-[1390px]:w-[30rem] xl:w-[35rem] 2xl:w-[40%]`}>
+  const { themeColor } = useBGTheme();
+  const getTextColor = () => {
+    if (themeColor === "rgb(249, 250, 251)") {
+      return "rgb(103, 103, 103)";
+    }
+    return `color-mix(in srgb, ${themeColor}, var(--foreground) 70%)`;
+  }
+
+  const textColor = getTextColor();
+
+  return (<div style={{color: textColor}} className={`flex-col bg-background border-0 md:border-l border-gray-200 h-screen top-0 ${isOpen ? "fixed flex w-full mt-20" : "hidden"} md:flex md:sticky md:mt-0 lg:w-[35rem] min-[1390px]:w-[30rem] xl:w-[35rem] 2xl:w-[40%]`}>
 
     <div className="2xl:!w-85 xl:!w-85 lg:!w-85 sm:w-40 i flex flex-col mt-10 md:mt-20 ml-7 mr-7 md:ml-7 md:mr-0 border-0 md:border-b border-gray-200">
       <div className="text-xl font-bold mb-1 ml-2.5">現在のこたつ</div>

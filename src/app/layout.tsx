@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Zen_Kaku_Gothic_New, Kosugi_Maru,M_PLUS_Rounded_1c } from "next/font/google";
+import { Geist, Geist_Mono, Zen_Kaku_Gothic_New, Kosugi_Maru, M_PLUS_Rounded_1c } from "next/font/google";
 import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/next"
@@ -10,6 +10,7 @@ import { threads, posts1, posts2, posts3, posts4 } from "./data";
 import LeftBar from "./components/leftBar";
 import Header from "./components/header";
 import MainLayout from "./components/mainLayout";
+import { ChangeTheme } from "@/lib/themeContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -60,9 +61,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${kosugiMaru.variable} ${m_Plus_Rounded_1c.variable} antialiased`}
       >
-        <MainLayout>
-          {children}
-        </MainLayout>
+        <ChangeTheme>
+          <MainLayout>
+            {children}
+          </MainLayout>
+        </ChangeTheme>
       </body>
     </html>
   );

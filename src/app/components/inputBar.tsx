@@ -11,9 +11,12 @@ import { FiSend, FiSmile } from "react-icons/fi";
 import { supabase } from "../../lib/supabase";
 import { DiVim } from "react-icons/di";
 
+import { useBGTheme } from "@/lib/themeContext";
+
 export default function InputBar({ threadId }: { threadId: number }) {
     const [message, setMessage] = useState("");
     const [showPicker, setShowPicker] = useState(false);
+    const [sending, setSending] = useState(false);
 
     const maxchar = 140;
 
@@ -22,7 +25,8 @@ export default function InputBar({ threadId }: { threadId: number }) {
     };
 
     const SendMessage = async () => {
-        if (message.trim() === "") return;
+        if (sending == true || message.trim() === "") return;
+        setSending(true);
         const { data: { user } } = await supabase.auth.getUser();
 
         const displayName = user?.user_metadata?.display_name
@@ -40,10 +44,21 @@ export default function InputBar({ threadId }: { threadId: number }) {
         if (error) {
             console.error("Error Details:", error.message);
         } else {
+            setSending(false);
             setMessage("");
             setShowPicker(false);
         }
     };
+
+        const {themeColor} = useBGTheme();
+        const getButtonColor = () =>{
+        if (themeColor === "rgb(249, 250, 251)") {
+            return "rgb(141, 111, 113)";
+        }
+        return `color-mix(in srgb, ${themeColor}, black 15%)`;
+    }
+
+    const buttonColor = getButtonColor();
 
     return (
         <div className="sticky bottom-0 h-20 border-t border-gray-200 flex items-center bg-background text-foreground shadow-[0_-1px_4px_rgba(0,0,0,0.05)] px-4 gap-4">
@@ -71,7 +86,7 @@ export default function InputBar({ threadId }: { threadId: number }) {
                 <div className="text-sm text-gray-500">{maxchar - message.length}</div>
             </div>
 
-            <button onClick={SendMessage} className="w-11 md:w-30 shrink-0 bg-[#8d6f71] hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 items-center rounded-3xl cursor-pointer">
+            <button onClick={SendMessage} disabled={sending} className="w-11 md:w-30 shrink-0 bg-[#8d6f71] hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 items-center rounded-3xl cursor-pointer">
                 <div className="flex items-center justify-center gap-2">
                     <FiSend className="mr-1 pt-0.5 w-7 h-7 stroke-[1.6]" />
                     <span className="hidden md:flex">発言</span>

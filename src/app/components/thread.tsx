@@ -5,6 +5,15 @@ import { supabase } from "@/lib/supabase";
 
 export default function PostsList({ threadId }: { threadId: number }) {
   const [posts, setPosts] = useState<{ id: number; username: string; content: string; postedAt: string }[]>([]);
+  const [isAutoScroll, setIsAutoScroll] = useState(true);
+  const [showScrollButton, setShowScrollButton] = useState(false);
+
+  const bottom = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    bottom.current?.scrollIntoView({ behavior: "smooth" });
+    setShowScrollButton(false);
+  };
 
   useEffect(() => {
     const CreatePosts = async () => {
@@ -37,6 +46,8 @@ export default function PostsList({ threadId }: { threadId: number }) {
         (payload) => {
           if (payload.eventType === "INSERT") {
             const newPost = payload.new;
+            const isBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 200;
+
             setPosts((prevPosts) => [
               ...prevPosts,
               {
@@ -46,6 +57,10 @@ export default function PostsList({ threadId }: { threadId: number }) {
                 postedAt: new Date(newPost.created_at).toLocaleString(),
               }
             ]);
+
+            if (!isBottom) {
+              setShowScrollButton(true);
+            }
           } else if (payload.eventType === "DELETE") {
             CreatePosts();
           }
@@ -58,21 +73,36 @@ export default function PostsList({ threadId }: { threadId: number }) {
     };
   }, [threadId]);
 
+  useEffect(() => {
+    if (posts.length === 0) return;
 
-  const bottom = useRef<HTMLDivElement>(null);
+    if (!showScrollButton) {
+      scrollToBottom();
+    }
+  }, [posts.length]);
 
   useEffect(() => {
-    bottom.current?.scrollIntoView({ behavior: "auto" });
-  }, [posts]);
+    const handleScroll = () => {
+      const isBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 200;
+      if(isBottom) {
+        setShowScrollButton(false);
+      }
+    };
 
+    window.addEventListener("scroll", handleScroll);
 
+    return() => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  },[]);
 
   return (
-    <main className="flex-1 flex flex-col justify-end bg-secondbg">
+    <main className="flex-1 items-center flex flex-col justify-end bg-secondbg">
+       {showScrollButton && (<div onClick={scrollToBottom} className="fixed z-50 bg-gray-200 hover:bg-gray-300 py-3 px-5 bottom-28 rounded-3xl text-blacks text-xs shadow-[0px_0px_20px_0.1px_rgba(0,3,3,0.3)] cursor-pointer">最新のメッセージまで移動</div>)}
       <div className="flex flex-col items-center mb-2 mt-6 w-full">
         <div className="flex flex-col w-full md:w-[690px] md:items-center">
           {posts.map((post, index) => (
-            <div key={post.id} className="w-full md:w-150 mb-5 bg-background text-foreground px-10 md:px-5 xl:px-10 py-5 hover:bg-gray-50 rounded-xl shadow-[0px_0px_20px_0.1px_rgba(0,3,3,0.03)]">
+            <div key={post.id} className="w-full md:w-150 mb-5 bg-background text-foreground px-10 md:px-5 xl:px-10 py-5 hover:bg-gray-50 rounded-xl shadow-[0px_0px_20px_0.1px_rgba(0,3,3,0.05)]">
 
               <div className="flex justify-between w-full md:w-full items-center">
                 <div className="flex items-center w-full">

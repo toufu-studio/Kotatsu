@@ -11,6 +11,7 @@ afterEach(() => {
 
 vi.mock("next/navigation", () => ({
     useRouter: () => ({ push: vi.fn() }),
+    usePathname: () => "/",
 }));
 
 vi.mock("@/lib/supabase", () => ({
@@ -20,7 +21,7 @@ vi.mock("@/lib/supabase", () => ({
                 data: null,
                 error: { status: 422 }
             }),
-            getUser: vi.fn().mockResolvedValue({
+            getUser: vi.fn().mockReturnValue({
                 data: { user: null },
                 error: null
             }),

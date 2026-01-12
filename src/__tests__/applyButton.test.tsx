@@ -27,6 +27,10 @@ vi.mock("next/navigation", () => ({
     useRouter: () => ({ push: vi.fn() }),
 }));
 
+vi.mock("@/lib/themeContext", () => ({
+    useBGTheme: () => ({ themeColor: "rgb(249, 250, 251)" }),
+}));
+
 afterEach(() => {
     cleanup();
     vi.useRealTimers();

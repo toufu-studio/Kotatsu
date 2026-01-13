@@ -86,7 +86,7 @@ export default function InputBar({ threadId }: { threadId: number }) {
                 <div className="text-sm text-gray-500">{maxchar - message.length}</div>
             </div>
 
-            <button onClick={SendMessage} disabled={sending} className="w-11 md:w-30 shrink-0 bg-[#8d6f71] hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 items-center rounded-3xl cursor-pointer">
+            <button onClick={SendMessage} disabled={sending} style={{backgroundColor: buttonColor}} className="w-11 md:w-30 shrink-0 hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 items-center rounded-3xl cursor-pointer">
                 <div className="flex items-center justify-center gap-2">
                     <FiSend className="mr-1 pt-0.5 w-7 h-7 stroke-[1.6]" />
                     <span className="hidden md:flex">発言</span>

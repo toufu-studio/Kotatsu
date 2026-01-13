@@ -46,6 +46,7 @@ export default function Profile() {
                         <div className="text-2xl font-bold mb-5">Hint</div>
                     </div>
                     <div className="flex flex-col text-sm mb-10 gap-5">
+                        <div>[ ? ] 投稿と応募に関する<a href="/guideline" className="text-foreground/60">ガイドライン</a>を確認してみましょう。</div>
                         <div>[ ? ] 一覧の「現在のこたつ」から好きなトピックを選んで会話してみましょう。</div>
                         <div>[ ? ] 毎時45分からトピックの募集が始まり、毎時0分にランダムで3つ選ばれます。</div>
                         <div>[ ? ] 「空のスレ」は、トピックの応募が足りなかった場合に出現します。空のスレでの会話は「アーカイブ」に表示されません。</div>

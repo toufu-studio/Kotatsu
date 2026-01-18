@@ -84,21 +84,21 @@ export default function PostsList({ threadId }: { threadId: number }) {
   useEffect(() => {
     const handleScroll = () => {
       const isBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 200;
-      if(isBottom) {
+      if (isBottom) {
         setShowScrollButton(false);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
 
-    return() => {
+    return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  },[]);
+  }, []);
 
   return (
     <main className="flex-1 items-center flex flex-col justify-end bg-secondbg">
-       {showScrollButton && (<div onClick={scrollToBottom} className="fixed z-50 bg-gray-200 hover:bg-gray-300 py-3 px-5 bottom-28 rounded-3xl text-blacks text-xs shadow-[0px_0px_20px_0.1px_rgba(0,3,3,0.3)] cursor-pointer">最新のメッセージまで移動</div>)}
+      {showScrollButton && (<div onClick={scrollToBottom} className="fixed z-50 bg-gray-200 hover:bg-gray-300 py-3 px-5 bottom-28 rounded-3xl text-blacks text-xs shadow-[0px_0px_20px_0.1px_rgba(0,3,3,0.3)] cursor-pointer">最新のメッセージまで移動</div>)}
       <div className="flex flex-col items-center mb-2 mt-6 w-full">
         <div className="flex flex-col w-full md:w-[690px] md:items-center">
           {posts.map((post, index) => (

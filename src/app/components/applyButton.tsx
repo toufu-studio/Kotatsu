@@ -86,7 +86,7 @@ export default function ApplyButton() {
 
     return (
         <div>
-            {isRecruiting ? (<button onClick={() => { setIsOpen(true); setIsRecrutingError(false);; setIsApply(false); }} style={{backgroundColor: buttonColor}} className="hover:bg-[#9c7c7e] duration-100 text-white font-bold py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center text-sm">トピックを応募</button>) : (<div  style={{backgroundColor: buttonColor}} className="hover:bg-[#9c7c7e] duration-100 text-white py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center text-sm">募集開始待機中</div>)}
+            {isRecruiting ? (<button onClick={() => { setIsOpen(true); setIsRecrutingError(false);; setIsApply(false); }} style={{backgroundColor: buttonColor}} className="duration-100 text-white font-bold py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center text-sm">トピックを応募</button>) : (<div  style={{backgroundColor: buttonColor}} className="hover:bg-[#9c7c7e] duration-100 text-white py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center text-sm">募集開始待機中</div>)}
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center">
                     <div className="absolute inset-0 bg-black/50" onClick={() => setIsOpen(false)}></div>
@@ -100,11 +100,11 @@ export default function ApplyButton() {
                         </div>
 
                         <p className="mb-3">トピックのタイトル</p>
-                        <textarea value={title} onChange={(e) => setTitle(e.target.value)} name="" id="" maxLength={35} placeholder="新作のゲームでおすすめ教えて" className="w-full h-10 border p-1.5 border-gray-200 rounded-lg mb-1"></textarea>
+                        <textarea value={title} onChange={(e) => setTitle(e.target.value)} name="" id="" maxLength={35} placeholder="新作のゲームでおすすめ教えて" className="w-full h-10 border p-1.5 border-gray-200 rounded-lg mb-1 resize-none"></textarea>
                         <div className="text-right text-sm text-gray-500">残り{maxTitleChar - title.length}文字</div>
 
                         <p className="mb-3">最初の発言</p>
-                        <textarea value={firstStatement} onChange={(e) => setFirstStatement(e.target.value)} name="" id="" maxLength={maxchar} placeholder="セールが来てるのに何買えばいいかわからないので頼む" className="w-full h-20 border p-1.5 border-gray-200 rounded-lg mb-1"></textarea>
+                        <textarea value={firstStatement} onChange={(e) => setFirstStatement(e.target.value)} name="" id="" maxLength={maxchar} placeholder="セールが来てるのに何買えばいいかわからないので頼む" className="w-full h-20 border p-1.5 border-gray-200 rounded-lg mb-1 resize-none"></textarea>
                         <div className="text-right text-sm text-gray-500">残り{maxchar - firstStatement.length}文字</div>
                         <div className="flex justify-end mt-5 items-center gap-5">
                             {pushApply && <p className="text-black text-sm">応募が完了しました！ :)</p>}
@@ -112,7 +112,7 @@ export default function ApplyButton() {
                             {isRecrutingError && <p className="text-red-500 text-sm">募集時間外です :)</p>}
                             <button onClick={() => {
                                 SendThread();
-                            }} className="bg-[#8d6f71] hover:bg-[#af8f92] text-white font-bold py-2 px-4 rounded-3xl cursor-pointer">応募する</button>
+                            }}  style={{ backgroundColor: buttonColor }} className="text-white font-bold py-2 px-4 rounded-3xl cursor-pointer">応募する</button>
                         </div>
                     </div>
                 </div>

@@ -6,14 +6,44 @@ import { useLoginChecker } from "../../lib/loginChecker";
 import Header from "../components/header";
 import LoginForm from "../components/loginForm"
 import LoadingScreen from "../components/loading"
+import RandomPost from "../components/randompost";
 
 import { FiHome, FiHelpCircle, FiBell, FiMail } from "react-icons/fi";
+import { useBGTheme } from "@/lib/themeContext";
 
 
 export default function Profile() {
 
     const { user, loading } = useLoginChecker();
     const [isMinLoadTime, setIsMinLoadTime] = useState(false);
+
+    const [changePostTrigger, setChangePostTrigger] = useState(0);
+
+    const pushChangePost = () => {
+        setChangePostTrigger(prev => prev + 1);
+    };
+
+    //色系処理
+
+    const { themeColor } = useBGTheme();
+
+    const getTextColor = () => {
+        if (themeColor === "rgb(249, 250, 251)") {
+            return "rgb(103, 103, 103)";
+        }
+        return `color-mix(in srgb, ${themeColor}, var(--foreground) 70%)`;
+    }
+
+    const textColor = getTextColor();
+
+    const getButtonColor = () => {
+        if (themeColor === "rgb(249, 250, 251)") {
+            return "rgb(141, 111, 113)";
+        }
+        return `color-mix(in srgb, ${themeColor}, black 15%)`;
+    }
+
+    const buttonColor = getButtonColor();
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -40,8 +70,12 @@ export default function Profile() {
                         <FiHome className="w-7 h-7 mb-5" />
                         <div className="text-2xl font-bold mb-5">Home</div>
                     </div>
-                    <div className="text-base mb-10">{displayName}さん、ようこそ！</div>
-                    <div className="flex items-center border-b border-gray-200 mb-5 gap-3">
+                    <div className="text-base mb-3">今日の投稿</div>
+                    <div>
+                        <RandomPost changePostTrigger={changePostTrigger}/>
+                    </div>
+                    <button onClick={pushChangePost} style={{ backgroundColor: buttonColor }} className="shrink-0 rounded-3xl w-50 h-10 mt-5 text-white cursor-pointer text-sm">ランダムで切り替え</button>
+                    <div className="mt-10 flex items-center border-b border-gray-200 mb-5 gap-3">
                         <FiHelpCircle className="w-7 h-7 mb-5" />
                         <div className="text-2xl font-bold mb-5">Hint</div>
                     </div>

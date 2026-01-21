@@ -93,7 +93,7 @@ export default function RandomPost({changePostTrigger}: {changePostTrigger: numb
     }, [post?.id]);
 
     return (
-        <div className="w-full h-full">
+        <div className="w-full h-full flex">
             <div className="w-full h-full bg-background border-3 border-secondbg p-5 shadow-[0px_0px_20px_0.1px_rgba(0,3,3,0.03)]">
                 {ispost && <div className="flex flex-col gap-3">
                     <div className="flex items-center justify-between">

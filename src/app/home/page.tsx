@@ -65,16 +65,16 @@ export default function Profile() {
         <div className="flex items-center flex-col md:min-h-screen bg-secondbg">
 
             <div className="w-80 md:w-[690px] bg-background text-foreground min-h-screen mx-10 my-8 px-10 py-8 rounded-xl shadow-[0px_0px_20px_0.1px_rgba(0,3,3,0.05)]">
-                <div className="flex flex-col h-250 md:h-screen">
+                <div className="flex flex-col h-300 md:h-screen">
                     <div className="flex items-center border-b border-gray-200 mb-5 gap-3">
                         <FiHome className="w-7 h-7 mb-5" />
                         <div className="text-2xl font-bold mb-5">Home</div>
                     </div>
                     <div className="text-base mb-3">今日の投稿</div>
                     <div>
-                        <RandomPost changePostTrigger={changePostTrigger}/>
+                        <RandomPost changePostTrigger={changePostTrigger} />
                     </div>
-                    <button onClick={pushChangePost} style={{ backgroundColor: buttonColor }} className="shrink-0 rounded-3xl w-50 h-10 mt-5 text-white cursor-pointer text-sm">ランダムで切り替え</button>
+                    <button onClick={pushChangePost} style={{ backgroundColor: buttonColor }} className="shrink-0 rounded-3xl w-full md:w-50 h-10 mt-5 text-white cursor-pointer text-sm">ランダムで切り替え</button>
                     <div className="mt-10 flex items-center border-b border-gray-200 mb-5 gap-3">
                         <FiHelpCircle className="w-7 h-7 mb-5" />
                         <div className="text-2xl font-bold mb-5">Hint</div>

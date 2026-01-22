@@ -17,10 +17,7 @@ export default function RandomPost({changePostTrigger}: {changePostTrigger: numb
         setlikeCount(0);
         setpost(null);
 
-        const { data: postData, error } = await supabase.rpc('get_random_post', {exclude_id: lastPost.current ? String(lastPost.current):""});
-        if(error) {
-            console.error(error.message);
-        }
+        const { data: postData } = await supabase.rpc('get_random_post', {exclude_id: lastPost.current ? String(lastPost.current):null});
 
         if (postData && postData.length > 0) {
             const randomPost = postData[0];

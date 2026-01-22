@@ -54,21 +54,23 @@ export default function ArchiveList() {
     return (
         <div className="flex flex-col items-center min-h-screen bg-secondbg">
 
-            <div className="w-80 md:w-[690px] bg-background text-foreground min-h-full mx-10 my-8 px-10 py-8 rounded-xl shadow-[0px_0px_20px_0.1px_rgba(0,3,3,0.05)]">
+            <div className="w-80 md:w-[690px] bg-background text-foreground min-h-full mx-10 my-8 px-10 py-8 rounded-xl border-secondbg border-5 shadow-[0px_0px_20px_0.1px_rgba(0,3,3,0.05)]">
                 <div className="flex flex-col">
                     <div className="flex flex-col border-b border-gray-200 mb-5">
                         <div className="flex items-center gap-3">
-                        <FiBook className="w-7 h-7"/>
-                        <div className="text-2xl font-bold">Archive</div>
+                            <FiBook className="w-7 h-7" />
+                            <div className="text-2xl font-bold">Archive</div>
                         </div>
                         <div className="text-base mb-5 mt-2">最近のこたつを5個まで遡って見ることができます。</div>
                     </div>
                     <div className="flex flex-col">
                         {archives?.map((thread) => (
-                            <Link key={thread.id} href={`/archive/${thread.id}`} className="mb-5 py-1 hover:bg-gray-100">
+                            <Link key={thread.id} href={`/archive/${thread.id}`} className="mb-5 py-1">
                                 <div className="flex flex-col">
-                                    <span>{thread.title}</span>
-                                    <span className="text-gray-400 text-sm">{thread.first_statement}</span>
+                                    <div className="flex flex-col justify-center w-full bg-background text-foreground h-20 px-10 py-8 rounded-xl shadow-[0px_0px_20px_0.1px_rgba(0,3,3,0.03)]">
+                                        <span>{thread.title}</span>
+                                        <span className="text-gray-400 text-sm">{thread.first_statement}</span>
+                                    </div>
                                 </div>
                             </Link>
                         ))}

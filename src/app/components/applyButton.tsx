@@ -104,7 +104,7 @@ export default function ApplyButton() {
                         <div className="text-right text-sm text-gray-500">残り{maxTitleChar - title.length}文字</div>
 
                         <p className="mb-3">最初の発言</p>
-                        <textarea value={firstStatement} onChange={(e) => setFirstStatement(e.target.value)} name="" id="" maxLength={maxchar} placeholder="セールが来てるのに何買えばいいかわからないので頼む" className="w-full h-20 border p-1.5 border-gray-200 rounded-lg mb-1 resize-none"></textarea>
+                        <textarea value={firstStatement} onChange={(e) => setFirstStatement(e.target.value)} name="" id="" maxLength={maxchar} placeholder="最初に投稿される文章を入力..." className="w-full h-20 border p-1.5 border-gray-200 rounded-lg mb-1 resize-none"></textarea>
                         <div className="text-right text-sm text-gray-500">残り{maxchar - firstStatement.length}文字</div>
                         <div className="flex justify-end mt-5 items-center gap-5">
                             {pushApply && <p className="text-black text-sm">応募が完了しました！ :)</p>}

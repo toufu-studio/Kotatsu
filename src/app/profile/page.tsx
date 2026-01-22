@@ -44,7 +44,7 @@ export default function Profile() {
     return (
         <div className="flex flex-col items-center min-h-screen bg-secondbg">
 
-            <div className="w-80 md:w-[690px] bg-background text-foreground h-100 mx-10 my-8 px-10 py-8 rounded-xl border-secondbg border-4 shadow-[0px_0px_20px_0.1px_rgba(0,3,3,0.05)]">
+            <div className="w-80 md:w-[690px] bg-background text-foreground h-100 mx-10 my-8 px-10 py-8 rounded-xl shadow-[0px_0px_20px_0.1px_rgba(0,3,3,0.05)]">
                 <div className="flex flex-col">
                     <div className="flex items-center border-b border-gray-200 mb-5 gap-3">
                         <FiUser className="w-7 h-7 mb-5" />

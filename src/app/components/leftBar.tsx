@@ -88,7 +88,7 @@ export default function LeftBar() {
 
   return (
     <div>
-      <div style={{ color: textColor }} className="w-[80px] xl:w-[280px] 2xl:w-[400px] bg-background md:border-r border-gray-200 h-15 md:h-screen sticky top-0 flex justify-between shrink-0">
+      <div style={{ color: textColor }} className="w-[80px] xl:w-[280px] 2xl:w-[400px] min-[1920px]:!w-[500px] bg-background md:border-r border-gray-200 h-15 md:h-screen sticky top-0 flex justify-between shrink-0">
         <div className="flex md:flex md:flex-col xl:mt-19 xl:mr-10 ml-auto md:mr-3 md:mt-13">
           <div className="flex gap-5 items-center rounded-3xl p-3">
             <div className="font-bold text-xl hidden xl:flex">KOTATSU</div>

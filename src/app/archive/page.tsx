@@ -67,7 +67,7 @@ export default function ArchiveList() {
                         {archives?.map((thread) => (
                             <Link key={thread.id} href={`/archive/${thread.id}`} className="mb-5 py-1">
                                 <div className="flex flex-col">
-                                    <div className="flex flex-col justify-center w-full bg-background text-foreground h-20 px-10 py-8 border-2 border-secondbg/50 rounded-xl shadow-[0px_0px_20px_0.1px_rgba(0,3,3,0.03)]">
+                                    <div className="flex flex-col justify-center w-full bg-background text-foreground h-20 px-10 py-8 border-2 border-[color-mix(in_srgb,var(--secondbg),black_1%)] rounded-xl shadow-[0px_0px_20px_0.1px_rgba(0,3,3,0.03)]">
                                         <span>{thread.title}</span>
                                         <span className="text-gray-400 text-sm">{thread.first_statement}</span>
                                     </div>

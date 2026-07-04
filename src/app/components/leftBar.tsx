@@ -125,8 +125,8 @@ export default function LeftBar() {
               <FiX className="" onClick={() => setIsOpen(false)} />
             </div>
             <div className="flex flex-col gap-3 mt-3 mb-4">
-              <h2 className="text-xl font-bold">投稿</h2>
-              <textarea value={content} onChange={(e) => setContent(e.target.value)} name="" id="" maxLength={100} placeholder="今、共有したいことは？" className="w-full h-20 focus:outline-none resize-none p-1.5 rounded-lg mb-1"></textarea>
+              <h2 className="text-black text-xl font-bold">投稿</h2>
+              <textarea value={content} onChange={(e) => setContent(e.target.value)} name="" id="" maxLength={100} placeholder="今、共有したいことは？" className="text-black w-full h-20 focus:outline-none resize-none p-1.5 rounded-lg mb-1"></textarea>
             </div>
             <div className="flex justify-end mt-5 items-center gap-5">
               <button onClick={() => {

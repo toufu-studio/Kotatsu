@@ -114,15 +114,15 @@ export default function LoginForm() {
             {/*サインアップ画面*/}
             <div>{isOpen &&
                 <div className="fixed inset-0 z-50 flex items-center justify-center w-screen">
-                    <div className="flex justify-center items-center absolute inset-0 bg-white">
+                    <div className="flex justify-center items-center absolute inset-0">
 
-                        <div className="hidden md:flex justify-center flex-col bg-white border-r border-gray-200 pr-10 z-10 mr-5 ml-10 lg:ml-auto">
+                        <div className="hidden md:flex justify-center flex-col border-r border-gray-200 pr-10 z-10 mr-5 ml-10 lg:ml-auto">
                             <div className=" flex flex-col text-end gap-10">
                                 <h1 className="font-bold text-5xl lg:text-9xl font-arial">Sign Up</h1>
                                 <p className="text-sm lg:text-base">今までにないほどハイスピードな会話に参加しましょう。<br />個人情報は、不要です。</p>
                             </div>
                         </div>
-                        <div className="flex flex-col justify-center bg-white md:w-1/2 md:mr-10 lg:mr-10 lg:ml-10 rounded-lg py-5 z-10 h-[450px]">
+                        <div className="flex flex-col justify-center md:w-1/2 md:mr-10 lg:mr-10 lg:ml-10 rounded-lg py-5 z-10 h-[450px]">
                             <div className="flex flex-col w-full max-w-md items-center md:items-start">
                                 <h2 className="text-xl font-bold mb-5">KOTATSUのアカウントを作成</h2>
                                 <div className="flex items-center">

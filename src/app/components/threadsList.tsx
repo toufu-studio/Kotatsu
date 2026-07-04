@@ -194,7 +194,7 @@ export default function ThreadsList({ isOpen, setIsOpen }: { isOpen: boolean; se
               <FiX className="" onClick={() => setIsPostOpen(false)} />
             </div>
             <div className="flex flex-col gap-3 mt-3 mb-4">
-              <h2 className="text-xl font-bold text-foreground">投稿</h2>
+              <h2 className="text-black text-xl font-bold text-foreground">投稿</h2>
               <textarea 
                 value={content} 
                 onChange={(e) => setContent(e.target.value)} 
@@ -202,7 +202,7 @@ export default function ThreadsList({ isOpen, setIsOpen }: { isOpen: boolean; se
                 id="" 
                 maxLength={100} 
                 placeholder="今、共有したいことは？" 
-                className="w-full h-20 focus:outline-none resize-none p-1.5 rounded-lg mb-1"
+                className="text-black w-full h-20 focus:outline-none resize-none p-1.5 rounded-lg mb-1"
               ></textarea>
             </div>
             <div className="flex justify-end mt-5 items-center gap-5">

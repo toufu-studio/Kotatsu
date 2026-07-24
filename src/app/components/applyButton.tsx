@@ -16,11 +16,11 @@ export default function ApplyButton() {
     const [isApply, setIsApply] = useState(false);
     const [pushApply, setPushApply] = useState(false);
     const [isRecrutingError, setIsRecrutingError] = useState(false);
+    const [submitError, setSubmitError] = useState(false);
 
     const maxchar = 140;
     const maxTitleChar = 35;
 
-    const now = new Date();
     const [currentTime, setCurrentTime] = useState(new Date());
 
     useEffect(() => {
@@ -36,6 +36,10 @@ export default function ApplyButton() {
     const isRecruiting = minutes >= 45;
 
     const SendThread = async () => {
+        setPushApply(false);
+        setIsApply(false);
+        setIsRecrutingError(false);
+        setSubmitError(false);
 
         if (!isRecruiting) {
             setIsRecrutingError(true);
@@ -44,35 +48,42 @@ export default function ApplyButton() {
 
         if (!title || !firstStatement) return;
 
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) {
-            return;
-        }
-
-        const displayName = user?.user_metadata?.display_name
-
-        const { error } = await supabase
-            .from("submitted_threads")
-            .insert([
-                {
-                    title: title,
-                    first_statement: firstStatement,
-                    author_id: user.id,
-                    user_name: displayName,
-                },
-
-            ]);
-
-        if (error) {
-            if (error.code === '23505') {
-                setIsApply(true);
-            } else {
-                setTitle("");
-                setFirstStatement("");
-                setIsOpen(false);
+        try {
+            const { data: { user }, error: authError } = await supabase.auth.getUser();
+            if (authError || !user) {
+                setSubmitError(true);
+                return;
             }
-        };
-        setPushApply(true);
+
+            const displayName = user.user_metadata?.display_name
+
+            const { error } = await supabase
+                .from("submitted_threads")
+                .insert([
+                    {
+                        title: title,
+                        first_statement: firstStatement,
+                        author_id: user.id,
+                        user_name: displayName,
+                    },
+
+                ]);
+
+            if (error) {
+                if (error.code === '23505') {
+                    setIsApply(true);
+                } else {
+                    setSubmitError(true);
+                }
+                return;
+            }
+
+            setTitle("");
+            setFirstStatement("");
+            setPushApply(true);
+        } catch {
+            setSubmitError(true);
+        }
     };
 
     const getButtonColor = () =>{
@@ -86,7 +97,7 @@ export default function ApplyButton() {
 
     return (
         <div>
-            {isRecruiting ? (<button onClick={() => { setIsOpen(true); setIsRecrutingError(false);; setIsApply(false); }} style={{backgroundColor: buttonColor}} className="duration-100 text-white font-bold py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center text-sm">トピックを応募</button>) : (<div  style={{backgroundColor: buttonColor}} className="hover:bg-[#9c7c7e] duration-100 text-white py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center text-sm">募集開始待機中</div>)}
+            {isRecruiting ? (<button onClick={() => { setIsOpen(true); setPushApply(false); setIsRecrutingError(false); setIsApply(false); setSubmitError(false); }} style={{backgroundColor: buttonColor}} className="duration-100 text-white font-bold py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center text-sm">トピックを応募</button>) : (<div  style={{backgroundColor: buttonColor}} className="hover:bg-[#9c7c7e] duration-100 text-white py-2 px-4 rounded-3xl cursor-pointer w-[144px] text-center text-sm">募集開始待機中</div>)}
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center">
                     <div className="absolute inset-0 bg-black/50" onClick={() => setIsOpen(false)}></div>
@@ -110,6 +121,7 @@ export default function ApplyButton() {
                             {pushApply && <p className="text-black text-sm">応募が完了しました！ :)</p>}
                             {isApply && <p className="text-red-500 text-sm">既に応募済みです :)</p>}
                             {isRecrutingError && <p className="text-red-500 text-sm">募集時間外です :)</p>}
+                            {submitError && <p className="text-red-500 text-sm">応募に失敗しました。もう一度お試しください。</p>}
                             <button onClick={() => {
                                 SendThread();
                             }}  style={{ backgroundColor: buttonColor }} className="text-white font-bold py-2 px-4 rounded-3xl cursor-pointer">応募する</button>
